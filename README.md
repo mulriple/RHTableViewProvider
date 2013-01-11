@@ -1,7 +1,7 @@
 RHTableViewProvider
 ===================
 
-A class to strip all the UITableView boilerplate code from your view controllers.
+A set of classes to strip all the UITableView boilerplate code from your view controllers.
 
 * Easily provide custom objects to each cell
 * Interchange custom UITableViewCell classes

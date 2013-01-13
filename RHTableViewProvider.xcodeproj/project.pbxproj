@@ -25,6 +25,7 @@
 		9368B8E216A0748D008CC5AB /* RHTableViewProviderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8DB16A0748D008CC5AB /* RHTableViewProviderCellView.m */; };
 		9368B8E316A0748D008CC5AB /* RHTableViewProviderRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */; };
 		9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8E616A076B2008CC5AB /* CustomCell.m */; };
+		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderRefreshView.m; sourceTree = "<group>"; };
 		9368B8E516A076B2008CC5AB /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		9368B8E616A076B2008CC5AB /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		93DF32F916A3114F004CBE75 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */,
 				9368B8AA16A07404008CC5AB /* UIKit.framework in Frameworks */,
 				9368B8AC16A07404008CC5AB /* Foundation.framework in Frameworks */,
 				9368B8AE16A07404008CC5AB /* CoreGraphics.framework in Frameworks */,
@@ -94,6 +97,7 @@
 		9368B8A816A07404008CC5AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93DF32F916A3114F004CBE75 /* CoreData.framework */,
 				9368B8A916A07404008CC5AB /* UIKit.framework */,
 				9368B8AB16A07404008CC5AB /* Foundation.framework */,
 				9368B8AD16A07404008CC5AB /* CoreGraphics.framework */,

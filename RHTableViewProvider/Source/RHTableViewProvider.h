@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "RHTableViewProviderDelegate.h"
 #import "RHTableViewProviderCell.h"
 
 extern NSString *const RHTableViewProviderSectionName;
 extern NSString *const RHTableViewProviderSectionRows;
 
-@interface RHTableViewProvider : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface RHTableViewProvider : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 {
   BOOL _hasSections;
   NSInteger _totalItems;
@@ -29,12 +30,20 @@ extern NSString *const RHTableViewProviderSectionRows;
 
 @property (assign, nonatomic) CGFloat pullToRefreshDistance;
 @property (assign, nonatomic) CGFloat pullToRefreshTimeout;
+@property (assign, nonatomic) CGFloat defaultSectionHeight;
+
+@property (strong, nonatomic) NSFetchRequest *fetchRequest;
+@property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSString *sectionKeyPath;
 
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate;
 
 - (void)setup;
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections;
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext;
+
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (Class)cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (Class)tableCellClassForContentOption;

@@ -10,9 +10,6 @@
 #import "RHTableViewProviderCell.h"
 #import "RHTableViewProviderRefreshView.h"
 
-#define PULL_TO_REFRESH_DISTANCE 70.0f
-#define PULL_TO_REFRESH_TIMEOUT 10.0f
-
 NSString *const RHTableViewProviderSectionName = @"RHTableViewProviderSectionName";
 NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRows";
 
@@ -33,10 +30,14 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {
   id object = nil;
   
+  if (self.fetchedResultsController)
+  {
+    return [self.fetchedResultsController objectAtIndexPath:indexPath];
+  }
+  
   NSDictionary *section = [self.content objectAtIndex:indexPath.section];
   NSArray *rows = [section valueForKey:RHTableViewProviderSectionRows];
   object = [rows objectAtIndex:indexPath.row];
-  
   return object;
 }
 
@@ -59,26 +60,62 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [self reload];
 }
 
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext
+{
+  self.fetchRequest = aFetchRequest;
+  self.context = aContext;
+  self.fetchedResultsController = nil;
+  
+  NSError *error = nil;
+  
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);
+	}
+  
+  [self reload];
+}
+
+#pragma mark - Total Items Count
+
 - (void)updateTotalItems
 {
-  _totalItems = 0;
+  _totalItems = [self totalItemsCount];
+}
+
+- (NSInteger)totalItemsCount
+{
+  if (self.fetchedResultsController)
+  {
+    return [[self.fetchedResultsController fetchedObjects] count];
+  }
+  
+  NSInteger count = 0;
   
   for (NSDictionary *section in self.content) {
-    _totalItems += [[section valueForKey:RHTableViewProviderSectionRows] count];
+    count += [[section valueForKey:RHTableViewProviderSectionRows] count];
   }
+  
+  return count;
 }
 
 - (BOOL)hasContent {
   
-  if (self.content == nil) {
+  if (self.fetchedResultsController)
+  {
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+      return YES;
+    }
     return NO;
   }
   
-  if ([self.content count] < 1) {
-    return NO;
+  if (self.content) {
+    if ([self.content count] > 0) {
+      return YES;
+    }
   }
   
-  return YES;
+  return NO;
 }
 
 #pragma mark - Reload
@@ -125,7 +162,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
   
-  [section setObject:@"Section" forKey:RHTableViewProviderSectionName];
+  [section setObject:@"" forKey:RHTableViewProviderSectionName];
   [section setObject:theContent forKey:RHTableViewProviderSectionRows];
   
   [mutable addObject:section];
@@ -147,24 +184,39 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+  NSInteger count = 0;
+  if (self.fetchedResultsController)
+  {
+    id sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    count = [sectionInfo numberOfObjects];
+    return count;
+  }
+  
   NSMutableDictionary *sectionContent = [self.content objectAtIndex:section];
-  NSInteger rows = [[sectionContent valueForKey:RHTableViewProviderSectionRows] count];
-  return rows;
+  count = [[sectionContent valueForKey:RHTableViewProviderSectionRows] count];
+  return count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  NSInteger sections = [self.content count];
-  if (sections < 1) {
-    sections = 1;
+  NSInteger count = 1;
+  if (self.fetchedResultsController)
+  {
+    count = [[self.fetchedResultsController sections] count];
+    return count;
   }
-  return sections;
+  
+  count = [self.content count];
+  if (count < 1) {
+    count = 1;
+  }
+  return count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {  
   if (_hasSections) {
-    return 25.0f;
+    return self.defaultSectionHeight;
   }
   
   return 0.0f;
@@ -172,8 +224,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+  if (self.fetchedResultsController) {
+    return @"Sample Core Data Section Title";
+  }
+  
   NSDictionary *dictionary = [self.content objectAtIndex:section];
-  return [dictionary valueForKey:RHTableViewProviderSectionName];
+  NSString *title = [dictionary valueForKey:RHTableViewProviderSectionName];
+  return title;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,9 +245,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {  
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:tableView:didSelectRowAtIndexPath:)])
+  if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:didSelectRowAtIndexPath:)])
   {
-    [self.delegate RHTableViewProvider:self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    [self.delegate RHTableViewProvider:self didSelectRowAtIndexPath:indexPath];
   }
 }
 
@@ -285,6 +342,25 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   } completion:nil];
 }
 
+#pragma mark - Core Data
+
+- (NSFetchedResultsController *)fetchedResultsController {
+  
+  if (self.fetchRequest == nil) {
+    return nil;
+  }
+  
+  if (_fetchedResultsController != nil) {
+    return _fetchedResultsController;
+  }
+  
+  NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.context sectionNameKeyPath:self.sectionKeyPath cacheName:nil];
+  self.fetchedResultsController = theFetchedResultsController;
+  self.fetchedResultsController.delegate = self;
+  
+  return _fetchedResultsController;
+}
+
 #pragma mark - Setup
 
 - (void)setup
@@ -302,8 +378,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (void)setupDefaults
 {
-  self.pullToRefreshDistance = PULL_TO_REFRESH_DISTANCE;
-  self.pullToRefreshTimeout = PULL_TO_REFRESH_TIMEOUT;
+  self.pullToRefreshDistance = 70.0f;
+  self.pullToRefreshTimeout = 10.0f;
+  self.defaultSectionHeight = 20.0f;
 }
 
 @end

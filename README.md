@@ -7,6 +7,7 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 * Interchange custom UITableViewCell classes
 * Pull to Refresh with your custom view
 * Handles display of your custom 'empty state' view
+* Core Data compatability setting table content with an NSFetchRequest and NSManagedObjectContext
 
 ## Sample Usage
 
@@ -65,6 +66,5 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 ## TODOs
 
 * This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate.
-* I have a simple version of this for Core Data working with, NSFetchedResultsController which I will probably add as a separate repo.
 * The idea behind this probably doesn't apply to editable tables but I'll have a go!
 * Add the option to use iOS 6 pull-to-refresh instead of the custom view

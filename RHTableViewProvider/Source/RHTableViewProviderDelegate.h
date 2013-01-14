@@ -13,9 +13,12 @@
 @protocol RHTableViewProviderDelegate <NSObject>
 
 @optional
-- (NSString *)classNameForCellAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)tableSectionHeaderViewClassForSection:(NSInteger)section;
+- (NSString *)tableSectionFooterViewClassForSection:(NSInteger)section;
 
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidPullToRefresh:(UITableView *)tableView;
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidCancelPullToRefresh:(UITableView *)tableView;
+
 @end

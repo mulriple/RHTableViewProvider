@@ -11,7 +11,8 @@
 #import "RHTableViewProviderDelegate.h"
 #import "RHTableViewProviderCell.h"
 
-extern NSString *const RHTableViewProviderSectionName;
+extern NSString *const RHTableViewProviderSectionHeader;
+extern NSString *const RHTableViewProviderSectionFooter;
 extern NSString *const RHTableViewProviderSectionRows;
 
 @interface RHTableViewProvider : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
@@ -45,8 +46,11 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-- (Class)cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (id)objectForSectionAtIndex:(NSInteger)index header:(BOOL)header;
+
+- (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (Class)tableCellClassForContentOption;
+- (Class)tableSectionViewClassForSection:(NSInteger)section header:(BOOL)header;
 
 - (void)reload;
 - (void)reloadVisibleCells;
@@ -56,6 +60,5 @@ extern NSString *const RHTableViewProviderSectionRows;
 
 - (void)pullToRefreshComplete;
 - (void)pullToRefreshFail;
-- (NSString *)titleForSection:(NSUInteger)section;
 
 @end

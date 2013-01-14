@@ -9,8 +9,11 @@
 #import "RHTableViewProvider.h"
 #import "RHTableViewProviderCell.h"
 #import "RHTableViewProviderRefreshView.h"
+#import "RHTableViewProviderSection.h"
+#import "NSDictionary+RHTVP.h"
 
-NSString *const RHTableViewProviderSectionName = @"RHTableViewProviderSectionName";
+NSString *const RHTableViewProviderSectionHeader = @"RHTableViewProviderSectionHeader";
+NSString *const RHTableViewProviderSectionFooter = @"RHTableViewProviderSectionFooter";
 NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRows";
 
 @implementation RHTableViewProvider
@@ -39,6 +42,15 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   NSArray *rows = [section valueForKey:RHTableViewProviderSectionRows];
   object = [rows objectAtIndex:indexPath.row];
   return object;
+}
+
+- (id)objectForSectionAtIndex:(NSInteger)index header:(BOOL)header
+{
+  NSDictionary *section = [self.content objectAtIndex:index];
+  if (header) {
+    return [section objectForKeyNotNull:RHTableViewProviderSectionHeader];
+  }
+  return [section objectForKeyNotNull:RHTableViewProviderSectionFooter];
 }
 
 #pragma mark - Setters
@@ -162,7 +174,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
   
-  [section setObject:@"" forKey:RHTableViewProviderSectionName];
   [section setObject:theContent forKey:RHTableViewProviderSectionRows];
   
   [mutable addObject:section];
@@ -173,11 +184,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (Class)tableCellClassForContentOption {
   
   return [RHTableViewProviderCell class];
-}
-
-- (NSString *)titleForSection:(NSUInteger)section
-{
-  return [[self.content objectAtIndex:section] valueForKey:RHTableViewProviderSectionName];
 }
 
 #pragma mark - UITableViewDelegate
@@ -213,30 +219,94 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{  
+- (CGFloat)heightForSectionAtIndex:(NSInteger)index header:(BOOL)header
+{
+  CGFloat height = 0.0f;
+  
   if (_hasSections) {
-    return self.defaultSectionHeight;
+    height = self.defaultSectionHeight;
   }
   
-  return 0.0f;
+  Class viewClass = [self tableSectionViewClassForSection:index header:header];
+  if (viewClass)
+  {
+    return [viewClass height];
+  }
+  else
+  {
+    id object = [self objectForSectionAtIndex:index header:header];
+    if (!object) {
+      height = 0.0f;
+    }
+  }
+  
+  return height;
+}
+
+#pragma mark - Sections
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return [self heightForSectionAtIndex:section header:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return [self heightForSectionAtIndex:section header:NO];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   if (self.fetchedResultsController) {
-    return @"Sample Core Data Section Title";
+    return @"Placeholder Section Header Title";
   }
   
-  NSDictionary *dictionary = [self.content objectAtIndex:section];
-  NSString *title = [dictionary valueForKey:RHTableViewProviderSectionName];
-  return title;
+  return [self objectForSectionAtIndex:section header:YES];
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  if (self.fetchedResultsController) {
+    return @"Placeholder Section Footer Title";
+  }
+  
+  return [self objectForSectionAtIndex:section header:NO];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  Class viewClass = [self tableSectionViewClassForSection:section header:YES];
+  if (!viewClass) {
+    return nil;
+  }
+  id <RHTableViewProviderSection> view = [[viewClass alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, [viewClass height])];
+  
+  id object = [self objectForSectionAtIndex:section header:YES];
+  [view populateWithObject:object];
+  
+  return (UIView *)view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+  Class viewClass = [self tableSectionViewClassForSection:section header:NO];
+  if (!viewClass) {
+    return nil;
+  }
+  id <RHTableViewProviderSection> view = [[viewClass alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, [viewClass height])];
+  
+  id object = [self objectForSectionAtIndex:section header:NO];
+  [view populateWithObject:object];
+  
+  return (UIView *)view;
+}
+
+#pragma mark - Rows
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   CGFloat height = 44.0f;
-  Class cellClass = [self cellClassForRowAtIndexPath:indexPath];
+  Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
   height = [cellClass height];
   return height;
 }
@@ -255,7 +325,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {  
   RHTableViewProviderCell *cell = nil;
   
-  Class cellClass = [self cellClassForRowAtIndexPath:indexPath];
+  Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
   NSString *identifier = NSStringFromClass(cellClass);
   
   cell = (RHTableViewProviderCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
@@ -271,12 +341,14 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return cell;
 }
 
-- (Class)cellClassForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Custom Views
+
+- (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *name = nil;
   
-  if ([self.delegate respondsToSelector:@selector(classNameForCellAtIndexPath:)]) {
-    name = [self.delegate classNameForCellAtIndexPath:indexPath];
+  if ([self.delegate respondsToSelector:@selector(tableCellClassForRowAtIndexPath:)]) {
+    name = [self.delegate tableCellClassForRowAtIndexPath:indexPath];
   }
   
   if (!name) {
@@ -284,6 +356,30 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   }
   
   return NSClassFromString(name);
+}
+
+- (Class)tableSectionViewClassForSection:(NSInteger)section header:(BOOL)header
+{
+  NSString *name = nil;
+  
+  if (header)
+  {
+    if ([self.delegate respondsToSelector:@selector(tableSectionHeaderViewClassForSection:)]) {
+      name = [self.delegate tableSectionHeaderViewClassForSection:section];
+    }
+  }
+  else
+  {
+    if ([self.delegate respondsToSelector:@selector(tableSectionFooterViewClassForSection:)]) {
+      name = [self.delegate tableSectionFooterViewClassForSection:section];
+    }
+  }
+  
+  if (name != nil) {
+    return NSClassFromString(name);
+  }
+  
+  return nil;
 }
 
 #pragma mark - PullToRefresh

@@ -26,6 +26,8 @@
 		9368B8E316A0748D008CC5AB /* RHTableViewProviderRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */; };
 		9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8E616A076B2008CC5AB /* CustomCell.m */; };
 		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
+		93F3A58716A404C100C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */; };
+		93F3A5A916A411AE00C0DC8F /* NSDictionary+RHTVP.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,11 @@
 		9368B8E516A076B2008CC5AB /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		9368B8E616A076B2008CC5AB /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		93DF32F916A3114F004CBE75 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		93F3A58516A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSectionViewDefault.h; sourceTree = "<group>"; };
+		93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderSectionViewDefault.m; sourceTree = "<group>"; };
+		93F3A5A216A4069900C0DC8F /* RHTableViewProviderSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSection.h; sourceTree = "<group>"; };
+		93F3A5A716A411AE00C0DC8F /* NSDictionary+RHTVP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHTVP.h"; sourceTree = "<group>"; };
+		93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHTVP.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,14 +148,16 @@
 			children = (
 				9368B8D416A0748D008CC5AB /* RHTableViewProvider.h */,
 				9368B8D516A0748D008CC5AB /* RHTableViewProvider.m */,
+				9368B8DC16A0748D008CC5AB /* RHTableViewProviderDelegate.h */,
 				9368B8D616A0748D008CC5AB /* RHTableViewProviderCell.h */,
 				9368B8D716A0748D008CC5AB /* RHTableViewProviderCell.m */,
 				9368B8DA16A0748D008CC5AB /* RHTableViewProviderCellView.h */,
 				9368B8DB16A0748D008CC5AB /* RHTableViewProviderCellView.m */,
-				9368B8DC16A0748D008CC5AB /* RHTableViewProviderDelegate.h */,
 				9368B8DD16A0748D008CC5AB /* RHTableViewProviderRefreshView.h */,
 				9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */,
+				93F3A5A216A4069900C0DC8F /* RHTableViewProviderSection.h */,
 				9368B8E816A0771A008CC5AB /* Defaults */,
+				93F3A5AA16A411B200C0DC8F /* Category */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -158,8 +167,19 @@
 			children = (
 				9368B8D816A0748D008CC5AB /* RHTableViewProviderCellDefault.h */,
 				9368B8D916A0748D008CC5AB /* RHTableViewProviderCellDefault.m */,
+				93F3A58516A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.h */,
+				93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */,
 			);
 			name = Defaults;
+			sourceTree = "<group>";
+		};
+		93F3A5AA16A411B200C0DC8F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				93F3A5A716A411AE00C0DC8F /* NSDictionary+RHTVP.h */,
+				93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +259,8 @@
 				9368B8E216A0748D008CC5AB /* RHTableViewProviderCellView.m in Sources */,
 				9368B8E316A0748D008CC5AB /* RHTableViewProviderRefreshView.m in Sources */,
 				9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */,
+				93F3A58716A404C100C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */,
+				93F3A5A916A411AE00C0DC8F /* NSDictionary+RHTVP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

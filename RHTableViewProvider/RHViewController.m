@@ -35,7 +35,17 @@
 - (void)fetchContent
 {
   NSArray *content = [NSArray arrayWithObjects:@"One", @"Two", @"Three", nil];
-  [self.provider setContent:content withSections:NO];
+  NSDictionary *section = [NSDictionary dictionaryWithObjectsAndKeys:content, RHTableViewProviderSectionRows, @"Section Name", RHTableViewProviderSectionHeader, nil];
+  [self.provider setContent:[NSArray arrayWithObject:section] withSections:YES];
+}
+
+- (void)fetchContentWithSections
+{
+  NSArray *contentA = [NSArray arrayWithObjects:@"One", @"Two", @"Three", nil];
+  NSArray *contentB = [NSArray arrayWithObjects:@"Four", @"Five", @"Six", nil];
+  NSDictionary *sectionA = [NSDictionary dictionaryWithObjectsAndKeys:contentA, RHTableViewProviderSectionRows, @"Section A", RHTableViewProviderSectionHeader, nil];
+  NSDictionary *sectionB = [NSDictionary dictionaryWithObjectsAndKeys:contentB, RHTableViewProviderSectionRows, @"Section B", RHTableViewProviderSectionHeader, @"Section B Footer", RHTableViewProviderSectionFooter, nil];
+  [self.provider setContent:[NSArray arrayWithObjects:sectionA, sectionB, nil] withSections:YES];
 }
 
 #pragma mark - RHTableViewProviderDelegate
@@ -48,12 +58,30 @@
   [alert show];
 }
 
-- (NSString *)classNameForCellAtIndexPath:(NSIndexPath *)indexPath
+- (NSString *)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   switch (indexPath.row) {
     case 1:
       return @"CustomCell";
       break;
+    default:
+      return nil;
+      break;
+  }
+}
+
+- (NSString *)tableSectionHeaderViewClassForSection:(NSInteger)section
+{
+  return @"RHTableViewProviderSectionViewDefault";
+}
+
+- (NSString *)tableSectionFooterViewClassForSection:(NSInteger)section
+{
+  switch (section) {
+    case 1:
+      return @"RHTableViewProviderSectionViewDefault";
+      break;
+    
     default:
       return nil;
       break;

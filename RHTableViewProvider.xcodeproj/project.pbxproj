@@ -19,15 +19,15 @@
 		9368B8C316A07404008CC5AB /* RHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8C216A07404008CC5AB /* RHViewController.m */; };
 		9368B8C616A07405008CC5AB /* RHViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8C416A07405008CC5AB /* RHViewController_iPhone.xib */; };
 		9368B8C916A07405008CC5AB /* RHViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8C716A07405008CC5AB /* RHViewController_iPad.xib */; };
-		9368B8DF16A0748D008CC5AB /* RHTableViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8D516A0748D008CC5AB /* RHTableViewProvider.m */; };
-		9368B8E016A0748D008CC5AB /* RHTableViewProviderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8D716A0748D008CC5AB /* RHTableViewProviderCell.m */; };
-		9368B8E116A0748D008CC5AB /* RHTableViewProviderCellDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8D916A0748D008CC5AB /* RHTableViewProviderCellDefault.m */; };
-		9368B8E216A0748D008CC5AB /* RHTableViewProviderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8DB16A0748D008CC5AB /* RHTableViewProviderCellView.m */; };
-		9368B8E316A0748D008CC5AB /* RHTableViewProviderRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */; };
 		9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8E616A076B2008CC5AB /* CustomCell.m */; };
 		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
-		93F3A58716A404C100C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */; };
-		93F3A5A916A411AE00C0DC8F /* NSDictionary+RHTVP.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */; };
+		93F3A5C616A4165400C0DC8F /* NSDictionary+RHTVP.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5B316A4165400C0DC8F /* NSDictionary+RHTVP.m */; };
+		93F3A5C716A4165400C0DC8F /* RHTableViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5B616A4165400C0DC8F /* RHTableViewProvider.m */; };
+		93F3A5C816A4165400C0DC8F /* RHTableViewProviderCellDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5B916A4165400C0DC8F /* RHTableViewProviderCellDefault.m */; };
+		93F3A5C916A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5BB16A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.m */; };
+		93F3A5CA16A4165400C0DC8F /* RHTableViewProviderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5C116A4165400C0DC8F /* RHTableViewProviderCell.m */; };
+		93F3A5CB16A4165400C0DC8F /* RHTableViewProviderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5C316A4165400C0DC8F /* RHTableViewProviderCellView.m */; };
+		93F3A5CC16A4165400C0DC8F /* RHTableViewProviderRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5C516A4165400C0DC8F /* RHTableViewProviderRefreshView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,25 +48,25 @@
 		9368B8C216A07404008CC5AB /* RHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHViewController.m; sourceTree = "<group>"; };
 		9368B8C516A07405008CC5AB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHViewController_iPhone.xib; sourceTree = "<group>"; };
 		9368B8C816A07405008CC5AB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHViewController_iPad.xib; sourceTree = "<group>"; };
-		9368B8D416A0748D008CC5AB /* RHTableViewProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProvider.h; sourceTree = "<group>"; };
-		9368B8D516A0748D008CC5AB /* RHTableViewProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProvider.m; sourceTree = "<group>"; };
-		9368B8D616A0748D008CC5AB /* RHTableViewProviderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCell.h; sourceTree = "<group>"; };
-		9368B8D716A0748D008CC5AB /* RHTableViewProviderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCell.m; sourceTree = "<group>"; };
-		9368B8D816A0748D008CC5AB /* RHTableViewProviderCellDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCellDefault.h; sourceTree = "<group>"; };
-		9368B8D916A0748D008CC5AB /* RHTableViewProviderCellDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellDefault.m; sourceTree = "<group>"; };
-		9368B8DA16A0748D008CC5AB /* RHTableViewProviderCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCellView.h; sourceTree = "<group>"; };
-		9368B8DB16A0748D008CC5AB /* RHTableViewProviderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellView.m; sourceTree = "<group>"; };
-		9368B8DC16A0748D008CC5AB /* RHTableViewProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderDelegate.h; sourceTree = "<group>"; };
-		9368B8DD16A0748D008CC5AB /* RHTableViewProviderRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderRefreshView.h; sourceTree = "<group>"; };
-		9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderRefreshView.m; sourceTree = "<group>"; };
 		9368B8E516A076B2008CC5AB /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		9368B8E616A076B2008CC5AB /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		93DF32F916A3114F004CBE75 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		93F3A58516A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSectionViewDefault.h; sourceTree = "<group>"; };
-		93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderSectionViewDefault.m; sourceTree = "<group>"; };
-		93F3A5A216A4069900C0DC8F /* RHTableViewProviderSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSection.h; sourceTree = "<group>"; };
-		93F3A5A716A411AE00C0DC8F /* NSDictionary+RHTVP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHTVP.h"; sourceTree = "<group>"; };
-		93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHTVP.m"; sourceTree = "<group>"; };
+		93F3A5B216A4165400C0DC8F /* NSDictionary+RHTVP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHTVP.h"; sourceTree = "<group>"; };
+		93F3A5B316A4165400C0DC8F /* NSDictionary+RHTVP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHTVP.m"; sourceTree = "<group>"; };
+		93F3A5B516A4165400C0DC8F /* RHTableViewProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProvider.h; sourceTree = "<group>"; };
+		93F3A5B616A4165400C0DC8F /* RHTableViewProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProvider.m; sourceTree = "<group>"; };
+		93F3A5B816A4165400C0DC8F /* RHTableViewProviderCellDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCellDefault.h; sourceTree = "<group>"; };
+		93F3A5B916A4165400C0DC8F /* RHTableViewProviderCellDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellDefault.m; sourceTree = "<group>"; };
+		93F3A5BA16A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSectionViewDefault.h; sourceTree = "<group>"; };
+		93F3A5BB16A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderSectionViewDefault.m; sourceTree = "<group>"; };
+		93F3A5BD16A4165400C0DC8F /* RHTableViewProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderDelegate.h; sourceTree = "<group>"; };
+		93F3A5BE16A4165400C0DC8F /* RHTableViewProviderSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderSection.h; sourceTree = "<group>"; };
+		93F3A5C016A4165400C0DC8F /* RHTableViewProviderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCell.h; sourceTree = "<group>"; };
+		93F3A5C116A4165400C0DC8F /* RHTableViewProviderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCell.m; sourceTree = "<group>"; };
+		93F3A5C216A4165400C0DC8F /* RHTableViewProviderCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCellView.h; sourceTree = "<group>"; };
+		93F3A5C316A4165400C0DC8F /* RHTableViewProviderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellView.m; sourceTree = "<group>"; };
+		93F3A5C416A4165400C0DC8F /* RHTableViewProviderRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderRefreshView.h; sourceTree = "<group>"; };
+		93F3A5C516A4165400C0DC8F /* RHTableViewProviderRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderRefreshView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 		9368B8AF16A07404008CC5AB /* RHTableViewProvider */ = {
 			isa = PBXGroup;
 			children = (
-				9368B8D316A0748C008CC5AB /* Source */,
+				93F3A5B016A4165400C0DC8F /* Source */,
 				9368B8B816A07404008CC5AB /* RHAppDelegate.h */,
 				9368B8B916A07404008CC5AB /* RHAppDelegate.m */,
 				9368B8C116A07404008CC5AB /* RHViewController.h */,
@@ -143,43 +143,67 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9368B8D316A0748C008CC5AB /* Source */ = {
+		93F3A5B016A4165400C0DC8F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				9368B8D416A0748D008CC5AB /* RHTableViewProvider.h */,
-				9368B8D516A0748D008CC5AB /* RHTableViewProvider.m */,
-				9368B8DC16A0748D008CC5AB /* RHTableViewProviderDelegate.h */,
-				9368B8D616A0748D008CC5AB /* RHTableViewProviderCell.h */,
-				9368B8D716A0748D008CC5AB /* RHTableViewProviderCell.m */,
-				9368B8DA16A0748D008CC5AB /* RHTableViewProviderCellView.h */,
-				9368B8DB16A0748D008CC5AB /* RHTableViewProviderCellView.m */,
-				9368B8DD16A0748D008CC5AB /* RHTableViewProviderRefreshView.h */,
-				9368B8DE16A0748D008CC5AB /* RHTableViewProviderRefreshView.m */,
-				93F3A5A216A4069900C0DC8F /* RHTableViewProviderSection.h */,
-				9368B8E816A0771A008CC5AB /* Defaults */,
-				93F3A5AA16A411B200C0DC8F /* Category */,
+				93F3A5B116A4165400C0DC8F /* Categories */,
+				93F3A5B416A4165400C0DC8F /* Core */,
+				93F3A5B716A4165400C0DC8F /* Defaults */,
+				93F3A5BC16A4165400C0DC8F /* Protocols */,
+				93F3A5BF16A4165400C0DC8F /* Views */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		9368B8E816A0771A008CC5AB /* Defaults */ = {
+		93F3A5B116A4165400C0DC8F /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				9368B8D816A0748D008CC5AB /* RHTableViewProviderCellDefault.h */,
-				9368B8D916A0748D008CC5AB /* RHTableViewProviderCellDefault.m */,
-				93F3A58516A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.h */,
-				93F3A58616A404C000C0DC8F /* RHTableViewProviderSectionViewDefault.m */,
+				93F3A5B216A4165400C0DC8F /* NSDictionary+RHTVP.h */,
+				93F3A5B316A4165400C0DC8F /* NSDictionary+RHTVP.m */,
 			);
-			name = Defaults;
+			path = Categories;
 			sourceTree = "<group>";
 		};
-		93F3A5AA16A411B200C0DC8F /* Category */ = {
+		93F3A5B416A4165400C0DC8F /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				93F3A5A716A411AE00C0DC8F /* NSDictionary+RHTVP.h */,
-				93F3A5A816A411AE00C0DC8F /* NSDictionary+RHTVP.m */,
+				93F3A5B516A4165400C0DC8F /* RHTableViewProvider.h */,
+				93F3A5B616A4165400C0DC8F /* RHTableViewProvider.m */,
 			);
-			name = Category;
+			path = Core;
+			sourceTree = "<group>";
+		};
+		93F3A5B716A4165400C0DC8F /* Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				93F3A5B816A4165400C0DC8F /* RHTableViewProviderCellDefault.h */,
+				93F3A5B916A4165400C0DC8F /* RHTableViewProviderCellDefault.m */,
+				93F3A5BA16A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.h */,
+				93F3A5BB16A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.m */,
+			);
+			path = Defaults;
+			sourceTree = "<group>";
+		};
+		93F3A5BC16A4165400C0DC8F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				93F3A5BD16A4165400C0DC8F /* RHTableViewProviderDelegate.h */,
+				93F3A5BE16A4165400C0DC8F /* RHTableViewProviderSection.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		93F3A5BF16A4165400C0DC8F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93F3A5C016A4165400C0DC8F /* RHTableViewProviderCell.h */,
+				93F3A5C116A4165400C0DC8F /* RHTableViewProviderCell.m */,
+				93F3A5C216A4165400C0DC8F /* RHTableViewProviderCellView.h */,
+				93F3A5C316A4165400C0DC8F /* RHTableViewProviderCellView.m */,
+				93F3A5C416A4165400C0DC8F /* RHTableViewProviderRefreshView.h */,
+				93F3A5C516A4165400C0DC8F /* RHTableViewProviderRefreshView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,14 +277,14 @@
 				9368B8B616A07404008CC5AB /* main.m in Sources */,
 				9368B8BA16A07404008CC5AB /* RHAppDelegate.m in Sources */,
 				9368B8C316A07404008CC5AB /* RHViewController.m in Sources */,
-				9368B8DF16A0748D008CC5AB /* RHTableViewProvider.m in Sources */,
-				9368B8E016A0748D008CC5AB /* RHTableViewProviderCell.m in Sources */,
-				9368B8E116A0748D008CC5AB /* RHTableViewProviderCellDefault.m in Sources */,
-				9368B8E216A0748D008CC5AB /* RHTableViewProviderCellView.m in Sources */,
-				9368B8E316A0748D008CC5AB /* RHTableViewProviderRefreshView.m in Sources */,
 				9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */,
-				93F3A58716A404C100C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */,
-				93F3A5A916A411AE00C0DC8F /* NSDictionary+RHTVP.m in Sources */,
+				93F3A5C616A4165400C0DC8F /* NSDictionary+RHTVP.m in Sources */,
+				93F3A5C716A4165400C0DC8F /* RHTableViewProvider.m in Sources */,
+				93F3A5C816A4165400C0DC8F /* RHTableViewProviderCellDefault.m in Sources */,
+				93F3A5C916A4165400C0DC8F /* RHTableViewProviderSectionViewDefault.m in Sources */,
+				93F3A5CA16A4165400C0DC8F /* RHTableViewProviderCell.m in Sources */,
+				93F3A5CB16A4165400C0DC8F /* RHTableViewProviderCellView.m in Sources */,
+				93F3A5CC16A4165400C0DC8F /* RHTableViewProviderRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

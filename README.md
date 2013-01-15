@@ -9,6 +9,7 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 * Handles display of your custom 'empty state' view
 * Core Data compatability setting table content with an NSFetchRequest and NSManagedObjectContext
 * Interchange custom section header/footer views, populate with dynamic data
+* Plays nicely with editing tables, deleting rows etc
 
 ## Sample Usage
 
@@ -66,7 +67,5 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 
 ## TODOs
 
-* This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate.
-* The idea has not yet been applied to editable tables but I'll have a go!
+* This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate. (Adding a 'cell datasource' for the lazy loading, set default datasource as the provider not the view controller)
 * Add the option to use iOS 6 pull-to-refresh instead of the custom view
-* Add a 'cell datasource' for lazy loading, set default datasource as the provider not the view controller

@@ -69,3 +69,4 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 * This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate.
 * The idea has not yet been applied to editable tables but I'll have a go!
 * Add the option to use iOS 6 pull-to-refresh instead of the custom view
+* Add a 'cell datasource' for lazy loading, set default datasource as the provider not the view controller

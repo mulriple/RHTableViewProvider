@@ -8,6 +8,7 @@
 
 #import "RHTableViewProviderCell.h"
 #import "RHTableViewProviderCellView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RHTableViewProviderCell
 
@@ -86,7 +87,25 @@
 
 - (void)drawContentView:(CGRect)rect
 {
-	// Subclasses should implement this
+  if (self.isGrouped) { [self drawGroupedMaskInRect:rect]; }
+}
+
+- (void)drawGroupedMaskInRect:(CGRect)rect
+{
+  if (self.isFirstCell)
+  {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10.0f, 10.f)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = maskPath.CGPath;
+    self.customView.layer.mask = maskLayer;
+  }
+  else if (self.isLastCell)
+  {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10.0f, 10.f)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = maskPath.CGPath;
+    self.customView.layer.mask = maskLayer;
+  }
 }
 
 @end

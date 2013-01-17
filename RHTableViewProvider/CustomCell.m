@@ -19,6 +19,7 @@
 
 - (void)drawContentView:(CGRect)rect
 {
+  [super drawContentView:rect];
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextSetFillColorWithColor(context, [[UIColor darkGrayColor] CGColor]);
   CGContextFillRect(context, rect);

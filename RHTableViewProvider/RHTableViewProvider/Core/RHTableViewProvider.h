@@ -25,6 +25,7 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) UIView *emptyView;
 @property (strong, nonatomic) UIView *pullToRefreshView;
 @property (assign, nonatomic) BOOL shouldPullToRefresh;
+@property (assign, nonatomic) CGFloat groupedCellCornerRadius;
 
 @property (assign, nonatomic) CGFloat pullToRefreshDistance;
 @property (assign, nonatomic) CGFloat pullToRefreshTimeout;
@@ -36,6 +37,7 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) NSString *sectionKeyPath;
 
 @property (strong, nonatomic) NSString *defaultCellClassName;
+@property (strong, nonatomic) NSString *defaultGroupedCellClassName;
 @property (strong, nonatomic) NSString *defaultSectionHeaderViewClassName;
 @property (strong, nonatomic) NSString *defaultSectionFooterViewClassName;
 

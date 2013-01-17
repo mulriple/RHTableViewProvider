@@ -59,14 +59,7 @@
 
 - (NSString *)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  switch (indexPath.row) {
-    case 1:
-      return @"CustomCell";
-      break;
-    default:
-      return nil;
-      break;
-  }
+  return nil;
 }
 
 - (NSString *)tableSectionHeaderViewClassForSection:(NSInteger)section

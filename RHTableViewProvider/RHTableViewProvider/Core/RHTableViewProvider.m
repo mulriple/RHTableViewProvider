@@ -357,13 +357,14 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   }
   
   id object = [self objectAtIndexPath:indexPath];
-  if ([indexPath isEqual:self.indexPathOfFirstRow]) { [cell setIsFirstCell:YES]; } else { [cell setIsFirstCell:NO]; }
-  if ([indexPath isEqual:self.indexPathOfLastRow]) { [cell setIsLastCell:YES]; } else { [cell setIsLastCell:NO]; }
-  if (self.tableView.style == UITableViewStyleGrouped) {
-    [cell group];
-  } else {
-    [cell unGroup];
-  }
+  
+  if ([indexPath isEqual:self.indexPathOfFirstRow]) { [cell setCellType:RHTableViewProviderCellTypeFirst]; }
+  else if ([indexPath isEqual:self.indexPathOfLastRow]) { [cell setCellType:RHTableViewProviderCellTypeLast]; }
+  else { [cell setCellType:RHTableViewProviderCellTypeStandard]; }
+  
+  if (self.tableView.style == UITableViewStyleGrouped) { [cell group]; } else { [cell unGroup]; }
+  
+  [cell setCornerRadius:self.groupedCellCornerRadius];
   [cell setIndexPath:indexPath];
   [cell populateWithObject:object];
   
@@ -389,7 +390,12 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if ([self.delegate respondsToSelector:@selector(tableCellClassForRowAtIndexPath:)]) {
     name = [self.delegate tableCellClassForRowAtIndexPath:indexPath];
   }
-  if (name == nil) { name = self.defaultCellClassName; }
+  if (name == nil) {
+    name = self.defaultCellClassName;
+    if (self.tableView.style == UITableViewStyleGrouped) {
+      name = self.defaultGroupedCellClassName;
+    }
+  }
   return NSClassFromString(name);
 }
 
@@ -520,7 +526,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   self.pullToRefreshDistance = 70.0f;
   self.pullToRefreshTimeout = 10.0f;
   self.defaultSectionHeight = 20.0f;
+  self.groupedCellCornerRadius = 10.0f;
   self.defaultCellClassName = @"RHTableViewProviderCellDefault";
+  self.defaultGroupedCellClassName = @"RHTableViewProviderCellGroupedDefault";
   self.defaultSectionHeaderViewClassName = @"RHTableViewProviderSectionViewDefault";
   self.defaultSectionFooterViewClassName = @"RHTableViewProviderSectionViewDefault";
 }

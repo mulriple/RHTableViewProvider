@@ -7,6 +7,7 @@
 //
 
 #import "RHTableViewProviderCellDefault.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RHTableViewProviderCellDefault
 

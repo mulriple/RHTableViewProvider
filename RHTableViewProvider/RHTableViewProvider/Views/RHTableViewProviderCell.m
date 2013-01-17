@@ -92,19 +92,33 @@
 
 - (void)drawGroupedMaskInRect:(CGRect)rect
 {
-  if (self.isFirstCell)
-  {
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10.0f, 10.f)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = maskPath.CGPath;
-    self.customView.layer.mask = maskLayer;
-  }
-  else if (self.isLastCell)
-  {
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10.0f, 10.f)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = maskPath.CGPath;
-    self.customView.layer.mask = maskLayer;
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  
+  switch (self.cellType) {
+    case RHTableViewProviderCellTypeFirst:
+    {
+      UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(self.cornerRadius, self.cornerRadius)];
+      CAShapeLayer *maskLayer = [CAShapeLayer layer];
+      maskLayer.path = maskPath.CGPath;
+      self.customView.layer.mask = maskLayer;
+    }
+      break;
+    case RHTableViewProviderCellTypeLast:
+    {
+      UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(self.cornerRadius, self.cornerRadius)];
+      CAShapeLayer *maskLayer = [CAShapeLayer layer];
+      maskLayer.path = maskPath.CGPath;
+      self.customView.layer.mask = maskLayer;
+    }
+    default:
+    {
+      CGContextSetLineWidth(context, 1.0f);
+      CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);
+      CGContextMoveToPoint(context, 0, rect.size.height);
+      CGContextAddLineToPoint(context, rect.size.width, rect.size.height - 1);
+      CGContextStrokePath(context);
+    }
+      break;
   }
 }
 

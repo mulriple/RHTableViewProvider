@@ -26,14 +26,14 @@
 
 - (void)setupTableView
 {
-  self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+  self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
   self.provider = [[RHTableViewProvider alloc] initWithTableView:self.tableView delegate:self];
   [[self view] addSubview:self.tableView];
 }
 
 - (void)fetchContent
 {
-  NSArray *content = [NSArray arrayWithObjects:@"One", @"Two", @"Three", nil];
+  NSArray *content = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", nil];
   NSDictionary *section = [NSDictionary dictionaryWithObjectsAndKeys:content, RHTableViewProviderSectionRows, @"Section Name", RHTableViewProviderSectionHeader, nil];
   [self.provider setContent:[NSArray arrayWithObject:section] withSections:YES];
 }

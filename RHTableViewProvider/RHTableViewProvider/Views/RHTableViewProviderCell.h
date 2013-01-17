@@ -10,14 +10,20 @@
 
 @interface RHTableViewProviderCell : UITableViewCell
 
-@property (strong, nonatomic) UIView *customView;
-@property (strong, nonatomic) id object;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) UIView *customView;
+@property (assign, nonatomic) BOOL isFirstCell;
+@property (assign, nonatomic) BOOL isLastCell;
+@property (assign, nonatomic) BOOL isGrouped;
+@property (strong, nonatomic) id object;
 
 - (void)drawContentView:(CGRect)rect;
-- (CGRect)customViewFrame;
+- (CGRect)groupedRect;
 
 + (CGFloat)height;
 - (void)populateWithObject:(id)object;
+
+- (void)group;
+- (void)unGroup;
 
 @end

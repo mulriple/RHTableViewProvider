@@ -20,6 +20,7 @@
 		9368B8C616A07405008CC5AB /* RHViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8C416A07405008CC5AB /* RHViewController_iPhone.xib */; };
 		9368B8C916A07405008CC5AB /* RHViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8C716A07405008CC5AB /* RHViewController_iPad.xib */; };
 		9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8E616A076B2008CC5AB /* CustomCell.m */; };
+		93A13CBD16A81441003372F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A13CBC16A81441003372F5 /* QuartzCore.framework */; };
 		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
 		93F3A5E816A4230400C0DC8F /* NSDictionary+RHTVP.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5D516A4230400C0DC8F /* NSDictionary+RHTVP.m */; };
 		93F3A5E916A4230400C0DC8F /* RHTableViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5D816A4230400C0DC8F /* RHTableViewProvider.m */; };
@@ -50,6 +51,7 @@
 		9368B8C816A07405008CC5AB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHViewController_iPad.xib; sourceTree = "<group>"; };
 		9368B8E516A076B2008CC5AB /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		9368B8E616A076B2008CC5AB /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		93A13CBC16A81441003372F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		93DF32F916A3114F004CBE75 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		93F3A5D416A4230400C0DC8F /* NSDictionary+RHTVP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHTVP.h"; sourceTree = "<group>"; };
 		93F3A5D516A4230400C0DC8F /* NSDictionary+RHTVP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHTVP.m"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A13CBD16A81441003372F5 /* QuartzCore.framework in Frameworks */,
 				93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */,
 				9368B8AA16A07404008CC5AB /* UIKit.framework in Frameworks */,
 				9368B8AC16A07404008CC5AB /* Foundation.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		9368B8A816A07404008CC5AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93A13CBC16A81441003372F5 /* QuartzCore.framework */,
 				93DF32F916A3114F004CBE75 /* CoreData.framework */,
 				9368B8A916A07404008CC5AB /* UIKit.framework */,
 				9368B8AB16A07404008CC5AB /* Foundation.framework */,
@@ -154,11 +158,11 @@
 		93F3A5D216A4230400C0DC8F /* RHTableViewProvider */ = {
 			isa = PBXGroup;
 			children = (
-				93F3A5D316A4230400C0DC8F /* Categories */,
 				93F3A5D616A4230400C0DC8F /* Core */,
-				93F3A5D916A4230400C0DC8F /* Defaults */,
+				93F3A5D316A4230400C0DC8F /* Categories */,
 				93F3A5DE16A4230400C0DC8F /* Protocols */,
 				93F3A5E116A4230400C0DC8F /* Views */,
+				93F3A5D916A4230400C0DC8F /* ViewDefaults */,
 			);
 			path = RHTableViewProvider;
 			sourceTree = "<group>";
@@ -181,7 +185,7 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		93F3A5D916A4230400C0DC8F /* Defaults */ = {
+		93F3A5D916A4230400C0DC8F /* ViewDefaults */ = {
 			isa = PBXGroup;
 			children = (
 				93F3A5DA16A4230400C0DC8F /* RHTableViewProviderCellDefault.h */,
@@ -189,6 +193,7 @@
 				93F3A5DC16A4230400C0DC8F /* RHTableViewProviderSectionViewDefault.h */,
 				93F3A5DD16A4230400C0DC8F /* RHTableViewProviderSectionViewDefault.m */,
 			);
+			name = ViewDefaults;
 			path = Defaults;
 			sourceTree = "<group>";
 		};

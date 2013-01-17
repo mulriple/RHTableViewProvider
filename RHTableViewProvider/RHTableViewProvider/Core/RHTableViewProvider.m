@@ -16,6 +16,13 @@ NSString *const RHTableViewProviderSectionHeader = @"RHTableViewProviderSectionH
 NSString *const RHTableViewProviderSectionFooter = @"RHTableViewProviderSectionFooter";
 NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRows";
 
+@interface RHTableViewProvider ()
+{
+  BOOL _hasSections;
+  NSInteger _totalItems;
+}
+@end
+
 @implementation RHTableViewProvider
 
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate
@@ -28,6 +35,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   }
   return self;
 }
+
+#pragma mark - Getters
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -53,7 +62,36 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return [section objectForKeyNotNull:RHTableViewProviderSectionFooter];
 }
 
+- (NSIndexPath *)indexPathOfFirstRow
+{
+  return [NSIndexPath indexPathForItem:0 inSection:0];
+}
+
+- (NSIndexPath *)indexPathOfLastRow
+{
+  if (_indexPathOfLastRow != nil) {
+    return _indexPathOfLastRow;
+  }
+  
+  NSInteger section = [self.content count];
+  if (section > 0) { section -= 1; }
+  NSInteger count = [[[self.content objectAtIndex:section] objectForKey:RHTableViewProviderSectionRows] count];
+  if (count > 1) { count -= 1; }
+  self.indexPathOfLastRow = [NSIndexPath indexPathForItem:count inSection:section];
+  return _indexPathOfLastRow;
+}
+
 #pragma mark - Setters
+
+- (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSDictionary *section = [self.content objectAtIndex:indexPath.section];
+  NSMutableArray *rows = [section valueForKey:RHTableViewProviderSectionRows];
+  id object = [rows objectAtIndex:indexPath.row];
+  if (object) {
+    [rows removeObjectAtIndex:indexPath.row];
+  }
+}
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections
 {  
@@ -133,7 +171,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 #pragma mark - Reload
 
 - (void)reload
-{  
+{
+  self.indexPathOfLastRow = nil;
+  
   BOOL hasContent = [self hasContent];
   if (hasContent) {
     [self displayWithData];
@@ -147,8 +187,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (void)reloadVisibleCells
 {
   NSArray *visibleCells = self.tableView.visibleCells;
-  for (RHTableViewProviderCell *cell in visibleCells) {
-    
+  for (RHTableViewProviderCell *cell in visibleCells)
+  {  
     id object = [self objectAtIndexPath:cell.indexPath];
     [cell populateWithObject:object];
   }
@@ -171,13 +211,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (NSArray *)contentWithSections:(NSArray *)theContent
 {  
   NSMutableArray *mutable = [NSMutableArray arrayWithCapacity:0];
-  
   NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
-  
   [section setObject:theContent forKey:RHTableViewProviderSectionRows];
-  
   [mutable addObject:section];
-  
   return mutable;
 }
 
@@ -211,11 +247,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
     count = [[self.fetchedResultsController sections] count];
     return count;
   }
-  
   count = [self.content count];
-  if (count < 1) {
-    count = 1;
-  }
+  if (count < 1) { count = 1; }
   return count;
 }
 
@@ -223,23 +256,16 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {
   CGFloat height = 0.0f;
   
-  if (_hasSections) {
-    height = self.defaultSectionHeight;
-  }
+  if (_hasSections) { height = self.defaultSectionHeight; }
   
   Class viewClass = [self tableSectionViewClassForSection:index header:header];
   if (viewClass)
-  {
-    return [viewClass height];
-  }
+  { return [viewClass height]; }
   else
   {
     id object = [self objectForSectionAtIndex:index header:header];
-    if (!object) {
-      height = 0.0f;
-    }
+    if (!object) { height = 0.0f; }
   }
-  
   return height;
 }
 
@@ -260,7 +286,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if (self.fetchedResultsController) {
     return @"Placeholder Section Header Title";
   }
-  
   return [self objectForSectionAtIndex:section header:YES];
 }
 
@@ -269,7 +294,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if (self.fetchedResultsController) {
     return @"Placeholder Section Footer Title";
   }
-  
   return [self objectForSectionAtIndex:section header:NO];
 }
 
@@ -314,7 +338,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {  
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  
   if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:didSelectRowAtIndexPath:)])
   {
     [self.delegate RHTableViewProvider:self didSelectRowAtIndexPath:indexPath];
@@ -333,12 +356,29 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
     cell = (RHTableViewProviderCell *)[[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
   }
   
-  [cell setIndexPath:indexPath];
-  
   id object = [self objectAtIndexPath:indexPath];
+  if ([indexPath isEqual:self.indexPathOfFirstRow]) { [cell setIsFirstCell:YES]; } else { [cell setIsFirstCell:NO]; }
+  if ([indexPath isEqual:self.indexPathOfLastRow]) { [cell setIsLastCell:YES]; } else { [cell setIsLastCell:NO]; }
+  if (self.tableView.style == UITableViewStyleGrouped) {
+    [cell group];
+  } else {
+    [cell unGroup];
+  }
+  [cell setIndexPath:indexPath];
   [cell populateWithObject:object];
   
   return cell;
+}
+
+#pragma mark - Editing
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:tableViewShoudDeleteRowAtIndexPath:)]) {
+      [self.delegate RHTableViewProvider:self tableViewShoudDeleteRowAtIndexPath:indexPath];
+    }
+  }
 }
 
 #pragma mark - Custom Views
@@ -346,30 +386,32 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *name = nil;
-  
   if ([self.delegate respondsToSelector:@selector(tableCellClassForRowAtIndexPath:)]) {
     name = [self.delegate tableCellClassForRowAtIndexPath:indexPath];
   }
-  
-  if (!name) {
-    name = @"RHTableViewProviderCellDefault";
-  }
-  
+  if (name == nil) { name = self.defaultCellClassName; }
   return NSClassFromString(name);
 }
 
 - (Class)tableSectionViewClassForSection:(NSInteger)section header:(BOOL)header
 {
+  id object = [self objectForSectionAtIndex:section header:header];
+  if (!object) {
+    return nil;
+  }
+  
   NSString *name = nil;
   
   if (header)
   {
+    name = self.defaultSectionHeaderViewClassName;
     if ([self.delegate respondsToSelector:@selector(tableSectionHeaderViewClassForSection:)]) {
       name = [self.delegate tableSectionHeaderViewClassForSection:section];
     }
   }
   else
   {
+    name = self.defaultSectionFooterViewClassName;
     if ([self.delegate respondsToSelector:@selector(tableSectionFooterViewClassForSection:)]) {
       name = [self.delegate tableSectionFooterViewClassForSection:section];
     }
@@ -470,6 +512,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [self.tableView setDataSource:self];
   [self.tableView setDelegate:self];
   [self.tableView setTableFooterView:[UIView new]];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)setupDefaults
@@ -477,6 +520,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   self.pullToRefreshDistance = 70.0f;
   self.pullToRefreshTimeout = 10.0f;
   self.defaultSectionHeight = 20.0f;
+  self.defaultCellClassName = @"RHTableViewProviderCellDefault";
+  self.defaultSectionHeaderViewClassName = @"RHTableViewProviderSectionViewDefault";
+  self.defaultSectionFooterViewClassName = @"RHTableViewProviderSectionViewDefault";
 }
 
 @end

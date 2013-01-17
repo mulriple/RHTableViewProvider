@@ -21,4 +21,6 @@
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidPullToRefresh:(UITableView *)tableView;
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidCancelPullToRefresh:(UITableView *)tableView;
 
+- (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewShoudDeleteRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end

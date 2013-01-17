@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <QuartzCore/QuartzCore.h>
 #import "RHTableViewProviderDelegate.h"
 #import "RHTableViewProviderCell.h"
 
@@ -16,10 +17,6 @@ extern NSString *const RHTableViewProviderSectionFooter;
 extern NSString *const RHTableViewProviderSectionRows;
 
 @interface RHTableViewProvider : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
-{
-  BOOL _hasSections;
-  NSInteger _totalItems;
-}
 
 @property (assign, nonatomic) id <RHTableViewProviderDelegate> delegate;
 @property (strong, nonatomic) UITableView *tableView;
@@ -38,6 +35,13 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSString *sectionKeyPath;
 
+@property (strong, nonatomic) NSString *defaultCellClassName;
+@property (strong, nonatomic) NSString *defaultSectionHeaderViewClassName;
+@property (strong, nonatomic) NSString *defaultSectionFooterViewClassName;
+
+@property (strong, nonatomic) NSIndexPath *indexPathOfFirstRow;
+@property (strong, nonatomic) NSIndexPath *indexPathOfLastRow;
+
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate;
 
 - (void)setup;
@@ -46,6 +50,8 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
+
 - (id)objectForSectionAtIndex:(NSInteger)index header:(BOOL)header;
 
 - (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -57,6 +63,8 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (void)displayWithoutData;
 - (void)displayWithData;
 - (BOOL)hasContent;
+- (NSIndexPath *)indexPathOfFirstRow;
+- (NSIndexPath *)indexPathOfLastRow;
 
 - (void)pullToRefreshComplete;
 - (void)pullToRefreshFail;

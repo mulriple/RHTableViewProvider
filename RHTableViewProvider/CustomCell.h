@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Rob Hayward. All rights reserved.
 //
 
-#import "RHTableViewProviderCell.h"
+#import "RHTableViewProviderCellDefault.h"
 
-@interface CustomCell : RHTableViewProviderCell
-
-@property (strong, nonatomic) UILabel *label;
+@interface CustomCell : RHTableViewProviderCellDefault
 
 @end

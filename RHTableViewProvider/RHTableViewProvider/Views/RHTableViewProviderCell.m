@@ -23,17 +23,40 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     [self setSelectionStyle:UITableViewCellEditingStyleNone];
-    self.customView = [[RHTableViewProviderCellView alloc] initWithFrame:self.contentView.frame];
+    self.customView = [[RHTableViewProviderCellView alloc] initWithFrame:CGRectZero];
     [self addSubview:self.customView];
   }
   return self;
 }
 
+- (void)group
+{
+  [self setIsGrouped:YES];
+  [self setBackgroundView:[UIView new]];
+  [self setFrame:CGRectZero];
+}
+
+- (void)unGroup
+{
+  [self setIsGrouped:NO];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+	[super setFrame:frame];
+  CGRect customViewFrame = self.contentView.frame;
+  if (self.isGrouped) { customViewFrame = [self groupedRect]; }
+  self.customView.frame = customViewFrame;
+	[self setNeedsDisplay];
+}
+
 #pragma mark - Getters
 
-- (CGRect)customViewFrame
+- (CGRect)groupedRect
 {
-  return CGRectMake(0.0, 0.0, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
+  CGRect rect = self.frame;
+  CGFloat margin = ceilf(rect.size.width * 0.03f);
+  return CGRectMake(margin, rect.origin.x, rect.size.width - (margin * 2), rect.size.height);
 }
 
 - (void)setNeedsDisplay
@@ -59,7 +82,6 @@
 - (void)populateWithObject:(id)anObject
 {
   self.object = anObject;
-  
 }
 
 - (void)drawContentView:(CGRect)rect

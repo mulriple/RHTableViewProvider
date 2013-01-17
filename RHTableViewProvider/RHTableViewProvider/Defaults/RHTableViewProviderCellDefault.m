@@ -7,6 +7,7 @@
 //
 
 #import "RHTableViewProviderCellDefault.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RHTableViewProviderCellDefault
 
@@ -18,7 +19,7 @@
     [self.label setBackgroundColor:[UIColor clearColor]];
     [self.label setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [self.label setTextColor:[UIColor darkGrayColor]];
-    [self addSubview:self.label];
+    [self.customView addSubview:self.label];
   }
   return self;
 }
@@ -32,8 +33,43 @@
 
 - (void)drawContentView:(CGRect)rect
 {
+  if (self.isGrouped) {
+    [self drawGroupedInRect:rect];
+  }
+  else {
+    [self drawStandardInRect:rect];
+  }
+}
+
+- (void)drawStandardInRect:(CGRect)rect
+{
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextSetFillColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
+  CGContextFillRect(context, rect);
+}
+
+- (void)drawGroupedInRect:(CGRect)rect
+{
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetFillColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
+  
+  if (self.isFirstCell)
+  {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10.0f, 10.f)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = maskPath.CGPath;
+    self.customView.layer.mask = maskLayer;
+    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
+  }
+  else if (self.isLastCell)
+  {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10.0f, 10.f)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = maskPath.CGPath;
+    self.customView.layer.mask = maskLayer;
+    CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
+  }
+  
   CGContextFillRect(context, rect);
 }
 

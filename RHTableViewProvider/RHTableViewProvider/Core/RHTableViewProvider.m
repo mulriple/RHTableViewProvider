@@ -81,6 +81,37 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return _indexPathOfLastRow;
 }
 
+- (BOOL)isIndexPathFirstRowOfSection:(NSIndexPath *)indexPath
+{
+  if (indexPath.row == 0) { return YES; }
+  return NO;
+}
+
+- (BOOL)isIndexPathLastRowOfSection:(NSIndexPath *)indexPath
+{
+  NSInteger count = [[[self.content objectAtIndex:indexPath.section] objectForKey:RHTableViewProviderSectionRows] count];
+  if (indexPath.row == (count - 1)) { return YES; }
+  return NO;
+}
+
+- (BOOL)isCellSingleInSectionForIndexPath:(NSIndexPath *)indexPath
+{
+  NSInteger count = [[[self.content objectAtIndex:indexPath.section] objectForKey:RHTableViewProviderSectionRows] count];
+  if (count > 1) {
+    return NO;
+  }
+  return YES;
+}
+
+- (CGFloat)cellWidth
+{
+  if (!self.tableView.style == UITableViewStyleGrouped) { return self.tableView.frame.size.width; }
+  else
+  {
+    return (self.tableView.frame.size.width - ((self.tableView.frame.size.width * GROUPED_CELL_WIDTH_MULTIPLIER) * 2));
+  }
+}
+
 #pragma mark - Setters
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
@@ -97,16 +128,18 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {  
   _hasSections = sections;
   
-  if (theContent == nil) {
-    theContent = [[NSArray alloc] init];
+  if (theContent == nil)
+  {
+    self.content = [[NSArray alloc] init];
   }
-  
-  if (_hasSections) {
-    self.content = theContent;
-  } else {
-    self.content = [self contentWithSections:theContent];
+  else
+  {
+    if (_hasSections) {
+      self.content = theContent;
+    } else {
+      self.content = [self contentWithSections:theContent];
+    }
   }
-  
   [self reload];
 }
 
@@ -241,14 +274,15 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  NSInteger count = 1;
+//  NSInteger count = 1;
+  NSInteger count = 0;
   if (self.fetchedResultsController)
   {
     count = [[self.fetchedResultsController sections] count];
     return count;
   }
   count = [self.content count];
-  if (count < 1) { count = 1; }
+//  if (count < 1) { count = 1; }
   return count;
 }
 
@@ -358,9 +392,10 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   id object = [self objectAtIndexPath:indexPath];
   
-  if ([indexPath isEqual:self.indexPathOfFirstRow]) { [cell setCellType:RHTableViewProviderCellTypeFirst]; }
-  else if ([indexPath isEqual:self.indexPathOfLastRow]) { [cell setCellType:RHTableViewProviderCellTypeLast]; }
-  else { [cell setCellType:RHTableViewProviderCellTypeStandard]; }
+  if ([self isCellSingleInSectionForIndexPath:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeSingle]; }
+  else if ([self isIndexPathFirstRowOfSection:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeFirst]; }
+  else if ([self isIndexPathLastRowOfSection:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeLast]; }
+  else { [cell setCellType:RHTableViewProviderCellTypeMiddle]; }
   
   if (self.tableView.style == UITableViewStyleGrouped) { [cell group]; } else { [cell unGroup]; }
   

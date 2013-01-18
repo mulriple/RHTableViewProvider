@@ -14,8 +14,9 @@ typedef enum
 {
   RHTableViewProviderCellTypeFirst,
   RHTableViewProviderCellTypeLast,
-  RHTableViewProviderCellTypeStandard
-}  RHTableViewProviderCellType;
+  RHTableViewProviderCellTypeMiddle,
+  RHTableViewProviderCellTypeSingle
+} RHTableViewProviderCellType;
 
 @interface RHTableViewProviderCell : UITableViewCell
 
@@ -25,6 +26,13 @@ typedef enum
 @property (strong, nonatomic) id object;
 @property (assign, nonatomic) CGFloat cornerRadius;
 @property (assign, nonatomic) RHTableViewProviderCellType cellType;
+
+@property (strong, nonatomic) UIColor *backgroundColorDefault;
+@property (strong, nonatomic) UIColor *backgroundColorDefaultHighlighted;
+@property (strong, nonatomic) UIColor *borderColor;
+@property (strong, nonatomic) UIColor *textColor;
+@property (strong, nonatomic) UIColor *textColorHighlighted;
+@property (assign, nonatomic) CGFloat borderWith;
 
 - (void)drawContentView:(CGRect)rect;
 - (CGRect)groupedRect;

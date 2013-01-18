@@ -62,22 +62,5 @@
   return nil;
 }
 
-- (NSString *)tableSectionHeaderViewClassForSection:(NSInteger)section
-{
-  return @"RHTableViewProviderSectionViewDefault";
-}
-
-- (NSString *)tableSectionFooterViewClassForSection:(NSInteger)section
-{
-  switch (section) {
-    case 1:
-      return @"RHTableViewProviderSectionViewDefault";
-      break;
-    
-    default:
-      return nil;
-      break;
-  }
-}
 
 @end

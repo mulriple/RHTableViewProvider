@@ -8,6 +8,7 @@
 
 #import "RHTableViewProviderCell.h"
 #import "RHTableViewProviderCellView.h"
+#import "RHTableViewProvider.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation RHTableViewProviderCell
@@ -56,7 +57,7 @@
 - (CGRect)groupedRect
 {
   CGRect rect = self.frame;
-  CGFloat margin = ceilf(rect.size.width * 0.03f);
+  CGFloat margin = ceilf(rect.size.width * GROUPED_CELL_WIDTH_MULTIPLIER);
   return CGRectMake(margin, rect.origin.x, rect.size.width - (margin * 2), rect.size.height);
 }
 
@@ -93,6 +94,7 @@
 - (void)drawGroupedMaskInRect:(CGRect)rect
 {
   CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextClearRect(context, rect);
   
   switch (self.cellType) {
     case RHTableViewProviderCellTypeFirst:
@@ -110,7 +112,16 @@
       maskLayer.path = maskPath.CGPath;
       self.customView.layer.mask = maskLayer;
     }
-    default:
+      break;
+    case RHTableViewProviderCellTypeSingle:
+    {
+      UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(self.cornerRadius, self.cornerRadius)];
+      CAShapeLayer *maskLayer = [CAShapeLayer layer];
+      maskLayer.path = maskPath.CGPath;
+      self.customView.layer.mask = maskLayer;
+    }
+      break;
+    case RHTableViewProviderCellTypeMiddle:
     {
       CGContextSetLineWidth(context, 1.0f);
       CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);

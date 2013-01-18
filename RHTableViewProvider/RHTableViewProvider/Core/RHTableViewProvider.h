@@ -12,6 +12,13 @@
 #import "RHTableViewProviderDelegate.h"
 #import "RHTableViewProviderCell.h"
 
+#import "RHTableViewProviderSectionViewDefault.h"
+#import "RHTableViewProviderCellGroupedDefault.h"
+#import "RHTableViewProviderEmptyViewDefault.h"
+#import "RHTableViewProviderCellDefault.h"
+
+#define GROUPED_CELL_WIDTH_MULTIPLIER 0.03f
+
 extern NSString *const RHTableViewProviderSectionHeader;
 extern NSString *const RHTableViewProviderSectionFooter;
 extern NSString *const RHTableViewProviderSectionRows;
@@ -67,6 +74,10 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (BOOL)hasContent;
 - (NSIndexPath *)indexPathOfFirstRow;
 - (NSIndexPath *)indexPathOfLastRow;
+- (BOOL)isIndexPathFirstRowOfSection:(NSIndexPath *)indexPath;
+- (BOOL)isIndexPathLastRowOfSection:(NSIndexPath *)indexPath;
+
+- (CGFloat)cellWidth;
 
 - (void)pullToRefreshComplete;
 - (void)pullToRefreshFail;

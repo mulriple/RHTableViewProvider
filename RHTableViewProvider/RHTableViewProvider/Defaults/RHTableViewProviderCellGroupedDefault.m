@@ -8,8 +8,6 @@
 
 #import "RHTableViewProviderCellGroupedDefault.h"
 
-#define BORDER_WIDTH 1.0f
-
 @implementation RHTableViewProviderCellGroupedDefault
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -19,15 +17,20 @@
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, self.bounds.size.width - 20.0f, self.bounds.size.height - 20.0f)];
     [self.label setBackgroundColor:[UIColor clearColor]];
     [self.label setFont:[UIFont boldSystemFontOfSize:16.0f]];
-    [self.label setTextColor:[UIColor whiteColor]];
     [self.customView addSubview:self.label];
+    
+    self.borderColor = [UIColor redColor];
+    self.backgroundColorDefault = [UIColor whiteColor];
+    self.backgroundColorDefaultHighlighted = [UIColor blueColor];
+    self.textColor = [UIColor darkGrayColor];
+    self.textColorHighlighted = [UIColor whiteColor];
+    self.borderWith = 1.0f;
   }
   return self;
 }
 
 - (void)populateWithObject:(id)object
 {
-  [super populateWithObject:object];
   [self.label setText:object];
 }
 
@@ -43,7 +46,10 @@
     case RHTableViewProviderCellTypeLast:
       [self drawAsLastCellInRect:rect];
       break;
-    default:
+    case RHTableViewProviderCellTypeSingle:
+      [self drawAsSingleCellInRect:rect];
+      break;
+    case RHTableViewProviderCellTypeMiddle:
       [self drawAsStandardCellInRect:rect];
       break;
   }
@@ -52,13 +58,14 @@
 - (void)drawGenericInRect:(CGRect)rect
 {
   CGContextRef context = UIGraphicsGetCurrentContext();
+  
   CGContextFillRect(context, rect);
   if (self.selected || self.highlighted) {
-    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    [self.label setTextColor:[UIColor whiteColor]];
+    CGContextSetFillColorWithColor(context, [self.backgroundColorDefaultHighlighted CGColor]);
+    [self.label setTextColor:self.textColorHighlighted];
   } else {
-    CGContextSetFillColorWithColor(context, [[UIColor darkGrayColor] CGColor]);
-    [self.label setTextColor:[UIColor lightGrayColor]];
+    CGContextSetFillColorWithColor(context, [self.backgroundColorDefault CGColor]);
+    [self.label setTextColor:self.textColor];
   }
   CGContextFillRect(context, rect);
 }
@@ -80,20 +87,54 @@
   [self drawLastCellBorderInRect:rect];
 }
 
+- (void)drawAsSingleCellInRect:(CGRect)rect
+{
+  CGFloat lineWidth = self.borderWith;
+  CGFloat radius = self.cornerRadius;
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetStrokeColorWithColor(context, [self.borderColor CGColor]);
+  
+  rect.origin.x = rect.origin.x + (lineWidth / 2);
+  rect.origin.y = rect.origin.y + (lineWidth / 2);
+  rect.size.width = rect.size.width - (lineWidth / 2);
+  rect.size.height = rect.size.height - (lineWidth / 2);
+  
+  // top
+  UIBezierPath *path = [[UIBezierPath alloc] init];
+  [path setLineWidth:lineWidth];
+  [path moveToPoint:CGPointMake(rect.origin.x, rect.origin.y + rect.size.height - radius)];
+  [path addLineToPoint:CGPointMake(rect.origin.x, rect.origin.y + radius)];
+  [path addArcWithCenter:CGPointMake(rect.origin.x + radius, rect.origin.y + radius) radius:radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(270) clockwise:YES];
+  [path addLineToPoint:CGPointMake(rect.size.width - radius, rect.origin.y)];
+  [path addArcWithCenter:CGPointMake(rect.size.width - radius, rect.origin.y + radius) radius:radius startAngle:DEGREES_TO_RADIANS(270) endAngle:DEGREES_TO_RADIANS(0) clockwise:YES];
+  [path addLineToPoint:CGPointMake(rect.size.width, rect.size.height + lineWidth - radius)];
+  [path strokeWithBlendMode:kCGBlendModeNormal alpha:1.0];
+  
+  // bottom
+  [path moveToPoint:CGPointMake(rect.origin.x, rect.origin.y + radius)];
+  [path addLineToPoint:CGPointMake(rect.origin.x, rect.size.height - radius)];
+  [path addArcWithCenter:CGPointMake(rect.origin.x + radius, rect.size.height - radius) radius:radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
+  [path addLineToPoint:CGPointMake(rect.size.width - radius, rect.size.height)];
+  [path addArcWithCenter:CGPointMake(rect.size.width - radius, rect.size.height - radius) radius:radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(0) clockwise:NO];
+  [path addLineToPoint:CGPointMake(rect.size.width, rect.origin.y + radius)];
+  [path strokeWithBlendMode:kCGBlendModeNormal alpha:1.0];
+}
+
 - (void)drawFirstCellBorderInRect:(CGRect)rect
 {
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  CGFloat lineWidth = BORDER_WIDTH;
-  CGContextSetStrokeColorWithColor(context, [[UIColor greenColor] CGColor]);
-  CGContextSetLineWidth(context, lineWidth);
+  CGFloat lineWidth = self.borderWith;
   CGFloat radius = self.cornerRadius;
   
-  rect.origin.x = rect.origin.x + lineWidth;
-  rect.origin.y = rect.origin.y + lineWidth;
-  rect.size.width = rect.size.width - lineWidth;
-  rect.size.height = rect.size.height - lineWidth;
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetStrokeColorWithColor(context, [self.borderColor CGColor]);
+  
+  rect.origin.x = rect.origin.x + (lineWidth / 2);
+  rect.origin.y = rect.origin.y + (lineWidth / 2);
+  rect.size.width = rect.size.width - (lineWidth / 2);
+  rect.size.height = rect.size.height - (lineWidth / 2);
   
   UIBezierPath *path = [[UIBezierPath alloc] init];
+  [path setLineWidth:lineWidth];
   [path moveToPoint:CGPointMake(rect.origin.x, rect.origin.y + rect.size.height)];
   [path addLineToPoint:CGPointMake(rect.origin.x, rect.origin.y + radius)];
   [path addArcWithCenter:CGPointMake(rect.origin.x + radius, rect.origin.y + radius) radius:radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(270) clockwise:YES];
@@ -105,19 +146,19 @@
 
 - (void)drawLastCellBorderInRect:(CGRect)rect
 {
-  CGFloat lineWidth = BORDER_WIDTH;
+  CGFloat lineWidth = self.borderWith;
   CGFloat radius = self.cornerRadius;
   
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGContextSetStrokeColorWithColor(context, [[UIColor greenColor] CGColor]);
-  CGContextSetLineWidth(context, lineWidth);
+  CGContextSetStrokeColorWithColor(context, [self.borderColor CGColor]);
   
-  rect.origin.x = rect.origin.x + lineWidth;
-  rect.origin.y = rect.origin.y - lineWidth;
-  rect.size.width = rect.size.width - lineWidth;
-  rect.size.height = rect.size.height - lineWidth;
+  rect.origin.x = rect.origin.x + (lineWidth / 2);
+  rect.origin.y = rect.origin.y - (lineWidth / 2);
+  rect.size.width = rect.size.width - (lineWidth / 2);
+  rect.size.height = rect.size.height - (lineWidth / 2);
   
   UIBezierPath *path = [[UIBezierPath alloc] init];
+  [path setLineWidth:lineWidth];
   [path moveToPoint:CGPointMake(rect.origin.x, rect.origin.y)];
   [path addLineToPoint:CGPointMake(rect.origin.x, rect.size.height - radius)];
   [path addArcWithCenter:CGPointMake(rect.origin.x + radius, rect.size.height - radius) radius:radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
@@ -130,27 +171,27 @@
 - (void)drawBottomBorderInRect:(CGRect)rect
 {
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGFloat lineWidth = BORDER_WIDTH;
+  CGFloat lineWidth = self.borderWith;
   CGContextSetLineWidth(context, lineWidth);
-  CGContextSetStrokeColorWithColor(context, [[UIColor greenColor] CGColor]);
-  CGContextMoveToPoint(context, rect.origin.x + lineWidth, rect.size.height - lineWidth);
-  CGContextAddLineToPoint(context, rect.size.width - lineWidth, rect.size.height - lineWidth);
+  CGContextSetStrokeColorWithColor(context, [self.borderColor CGColor]);
+  CGContextMoveToPoint(context, rect.origin.x + (lineWidth / 2), rect.size.height - (lineWidth / 2));
+  CGContextAddLineToPoint(context, rect.size.width - (lineWidth / 2), rect.size.height - (lineWidth / 2));
   CGContextStrokePath(context);
 }
 
 - (void)drawSideBordersInRect:(CGRect)rect
 {
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGFloat lineWidth = BORDER_WIDTH;
+  CGFloat lineWidth = self.borderWith;
   CGContextSetLineWidth(context, lineWidth);
-  CGContextSetStrokeColorWithColor(context, [[UIColor greenColor] CGColor]);
+  CGContextSetStrokeColorWithColor(context, [self.borderColor CGColor]);
   
-  CGContextMoveToPoint(context, lineWidth, 0);
-  CGContextAddLineToPoint(context, lineWidth, rect.size.height);
+  CGContextMoveToPoint(context, (lineWidth / 2), 0);
+  CGContextAddLineToPoint(context, (lineWidth / 2), rect.size.height);
   CGContextStrokePath(context);
   
-  CGContextMoveToPoint(context, rect.size.width - lineWidth, 0);
-  CGContextAddLineToPoint(context, rect.size.width - lineWidth, rect.size.height);
+  CGContextMoveToPoint(context, rect.size.width - (lineWidth / 2), 0);
+  CGContextAddLineToPoint(context, rect.size.width - (lineWidth / 2), rect.size.height);
   CGContextStrokePath(context);
 }
 

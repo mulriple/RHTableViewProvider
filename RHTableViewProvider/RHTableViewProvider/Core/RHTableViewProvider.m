@@ -434,14 +434,19 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   if (header)
   {
-    name = self.defaultSectionHeaderViewClassName;
-    if ([self.delegate respondsToSelector:@selector(tableSectionHeaderViewClassForSection:)]) {
+    if (self.tableView.style == UITableViewStylePlain) { name = self.defaultSectionHeaderViewClassName; }
+    else { name = name = self.defaultGroupedSectionHeaderViewClassName; }
+    
+    if ([self.delegate respondsToSelector:@selector(tableSectionHeaderViewClassForSection:)])
+    {
       name = [self.delegate tableSectionHeaderViewClassForSection:section];
     }
   }
   else
   {
-    name = self.defaultSectionFooterViewClassName;
+    if (self.tableView.style == UITableViewStylePlain) { name = self.defaultSectionFooterViewClassName; }
+    else { name = name = self.defaultGroupedSectionFooterViewClassName; }
+    
     if ([self.delegate respondsToSelector:@selector(tableSectionFooterViewClassForSection:)]) {
       name = [self.delegate tableSectionFooterViewClassForSection:section];
     }
@@ -542,7 +547,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [self.tableView setDataSource:self];
   [self.tableView setDelegate:self];
   [self.tableView setTableFooterView:[UIView new]];
-  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)setupDefaults
@@ -555,6 +559,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   self.defaultGroupedCellClassName = @"RHTableViewProviderCellGroupedDefault";
   self.defaultSectionHeaderViewClassName = @"RHTableViewProviderSectionViewDefault";
   self.defaultSectionFooterViewClassName = @"RHTableViewProviderSectionViewDefault";
+  self.defaultGroupedSectionHeaderViewClassName = @"RHTableViewProviderSectionViewGroupedDefault";
+  self.defaultGroupedSectionFooterViewClassName = @"RHTableViewProviderSectionViewGroupedDefault";
 }
 
 @end

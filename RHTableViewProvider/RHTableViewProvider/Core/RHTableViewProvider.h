@@ -13,6 +13,7 @@
 #import "RHTableViewProviderCell.h"
 
 #import "RHTableViewProviderSectionViewDefault.h"
+#import "RHTableViewProviderSectionViewGroupedDefault.h"
 #import "RHTableViewProviderCellGroupedDefault.h"
 #import "RHTableViewProviderEmptyViewDefault.h"
 #import "RHTableViewProviderCellDefault.h"
@@ -47,6 +48,8 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) NSString *defaultGroupedCellClassName;
 @property (strong, nonatomic) NSString *defaultSectionHeaderViewClassName;
 @property (strong, nonatomic) NSString *defaultSectionFooterViewClassName;
+@property (strong, nonatomic) NSString *defaultGroupedSectionHeaderViewClassName;
+@property (strong, nonatomic) NSString *defaultGroupedSectionFooterViewClassName;
 
 @property (strong, nonatomic) NSIndexPath *indexPathOfFirstRow;
 @property (strong, nonatomic) NSIndexPath *indexPathOfLastRow;

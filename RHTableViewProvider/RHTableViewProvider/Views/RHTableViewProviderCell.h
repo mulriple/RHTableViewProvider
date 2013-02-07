@@ -32,7 +32,7 @@ typedef enum
 @property (strong, nonatomic) UIColor *borderColor;
 @property (strong, nonatomic) UIColor *textColor;
 @property (strong, nonatomic) UIColor *textColorHighlighted;
-@property (assign, nonatomic) CGFloat borderWith;
+@property (assign, nonatomic) CGFloat borderWidth;
 
 - (void)drawContentView:(CGRect)rect;
 - (CGRect)groupedRect;

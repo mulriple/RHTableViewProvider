@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93055D9516A8444400144C3D /* RHTableViewProviderCellGroupedDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93055D9416A8444400144C3D /* RHTableViewProviderCellGroupedDefault.m */; };
+		9367216916C3B607000CC2C5 /* RHTableViewProviderEditable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9367216816C3B607000CC2C5 /* RHTableViewProviderEditable.m */; };
 		9368B8AA16A07404008CC5AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9368B8A916A07404008CC5AB /* UIKit.framework */; };
 		9368B8AC16A07404008CC5AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9368B8AB16A07404008CC5AB /* Foundation.framework */; };
 		9368B8AE16A07404008CC5AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9368B8AD16A07404008CC5AB /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		93055D9316A8444400144C3D /* RHTableViewProviderCellGroupedDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderCellGroupedDefault.h; sourceTree = "<group>"; };
 		93055D9416A8444400144C3D /* RHTableViewProviderCellGroupedDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellGroupedDefault.m; sourceTree = "<group>"; };
+		9367216716C3B607000CC2C5 /* RHTableViewProviderEditable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderEditable.h; sourceTree = "<group>"; };
+		9367216816C3B607000CC2C5 /* RHTableViewProviderEditable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderEditable.m; sourceTree = "<group>"; };
 		9368B8A516A07404008CC5AB /* RHTableViewProvider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHTableViewProvider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9368B8A916A07404008CC5AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9368B8AB16A07404008CC5AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -187,6 +190,8 @@
 			children = (
 				93F3A5D716A4230400C0DC8F /* RHTableViewProvider.h */,
 				93F3A5D816A4230400C0DC8F /* RHTableViewProvider.m */,
+				9367216716C3B607000CC2C5 /* RHTableViewProviderEditable.h */,
+				9367216816C3B607000CC2C5 /* RHTableViewProviderEditable.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				93F3A5EE16A4230400C0DC8F /* RHTableViewProviderRefreshView.m in Sources */,
 				93055D9516A8444400144C3D /* RHTableViewProviderCellGroupedDefault.m in Sources */,
 				93B43A6216A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m in Sources */,
+				9367216916C3B607000CC2C5 /* RHTableViewProviderEditable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

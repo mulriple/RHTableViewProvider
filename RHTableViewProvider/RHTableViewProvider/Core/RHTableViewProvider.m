@@ -406,17 +406,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return cell;
 }
 
-#pragma mark - Editing
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if (editingStyle == UITableViewCellEditingStyleDelete) {
-    if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:tableViewShoudDeleteRowAtIndexPath:)]) {
-      [self.delegate RHTableViewProvider:self tableViewShoudDeleteRowAtIndexPath:indexPath];
-    }
-  }
-}
-
 #pragma mark - Custom Views
 
 - (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath

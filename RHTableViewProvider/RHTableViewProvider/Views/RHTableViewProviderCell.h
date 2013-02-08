@@ -38,6 +38,10 @@ typedef enum
 - (CGRect)groupedRect;
 
 + (CGFloat)height;
+- (void)willBeginEditing;
+- (void)didEndEditing;
+- (void)willDisplay;
+- (void)didEndDisplay;
 - (void)populateWithObject:(id)object;
 
 - (void)group;

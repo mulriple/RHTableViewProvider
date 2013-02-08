@@ -33,6 +33,16 @@
   return self;
 }
 
+- (void)willDisplay
+{
+  
+}
+
+- (void)didEndDisplay
+{
+  
+}
+
 - (void)populateWithObject:(id)theObject
 {
   self.object = theObject;

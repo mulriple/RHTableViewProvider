@@ -29,6 +29,7 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (assign, nonatomic) id <RHTableViewProviderDelegate> delegate;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *content;
+@property (strong, nonatomic) NSArray *sectionIndexTitles;
 
 @property (strong, nonatomic) UIView *emptyView;
 @property (assign, nonatomic) BOOL shouldPullToRefresh;

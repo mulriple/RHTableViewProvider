@@ -81,6 +81,26 @@
 
 #pragma mark - Template methods
 
+- (void)willBeginEditing
+{
+  
+}
+
+- (void)didEndEditing
+{
+  
+}
+
+- (void)willDisplay
+{
+  
+}
+
+- (void)didEndDisplay
+{
+  
+}
+
 - (void)populateWithObject:(id)anObject
 {
   self.object = anObject;

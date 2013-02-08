@@ -10,20 +10,28 @@
 
 @implementation ExampleFourViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-  [super viewDidLoad];
-  
+  [super viewWillAppear:animated];
+  if (!self.tableView)
+  {
+    [self setupTableView];
+  }
+}
+
+- (void)setupTableView
+{
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
   self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
   
   [_provider setShouldDrawCustomViews:YES];
   [_provider setDefaultCellClassName:@"ExampleFourCell"];
+  [_provider setSectionIndexTitles:@[@"A", @"B"]];
   
-  NSDictionary *sectionA = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section A" };
-  NSDictionary *sectionB = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section B", RHTableViewProviderSectionFooter:@"Section B Footer" };
+  NSDictionary *sectionA = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten"], RHTableViewProviderSectionHeader:@"Section A" };
+  NSDictionary *sectionB = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten"], RHTableViewProviderSectionHeader:@"Section B", RHTableViewProviderSectionFooter:@"Section B Footer" };
   
-  [self.provider setContent:@[sectionA, sectionB] withSections:YES];
+  [_provider setContent:@[sectionA, sectionB] withSections:YES];
 }
 
 #pragma mark - RHTableViewProviderDelegate

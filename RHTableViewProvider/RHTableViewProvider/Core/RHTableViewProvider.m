@@ -264,6 +264,12 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 #pragma mark - UITableViewDelegate
 
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+  return NO;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   NSInteger count = 0;
@@ -281,7 +287,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//  NSInteger count = 1;
   NSInteger count = 0;
   if (self.fetchedResultsController)
   {
@@ -289,7 +294,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
     return count;
   }
   count = [self.content count];
-//  if (count < 1) { count = 1; }
   return count;
 }
 
@@ -320,6 +324,11 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
   return [self heightForSectionAtIndex:section header:NO];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+  return self.sectionIndexTitles;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -366,6 +375,34 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return (UIView *)view;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+  if ([view conformsToProtocol:@protocol(RHTableViewProviderSection)]) {
+    [(id <RHTableViewProviderSection>)view willDisplay];
+  }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+  if ([view conformsToProtocol:@protocol(RHTableViewProviderSection)]) {
+    [(id <RHTableViewProviderSection>)view willDisplay];
+  }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+  if ([view conformsToProtocol:@protocol(RHTableViewProviderSection)]) {
+    [(id <RHTableViewProviderSection>)view didEndDisplay];
+  }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section
+{
+  if ([view conformsToProtocol:@protocol(RHTableViewProviderSection)]) {
+    [(id <RHTableViewProviderSection>)view didEndDisplay];
+  }
+}
+
 #pragma mark - Rows
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -379,6 +416,14 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 }
 
 #pragma mark - Cells
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([cell isKindOfClass:[RHTableViewProviderCell class]])
+  {
+    [(RHTableViewProviderCell *)cell willDisplay];
+  }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -413,7 +458,19 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return cell;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+  return 0;
+}
+
 #pragma mark - Row Selection
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+  return indexPath;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -422,6 +479,39 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   {
     [self.delegate RHTableViewProvider:self didSelectRowAtIndexPath:indexPath];
   }
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+  return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+  [self tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
+#pragma mark - Row Highlight
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Subclass the provider to implement this functionality
 }
 
 #pragma mark - Custom Views

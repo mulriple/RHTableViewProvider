@@ -14,6 +14,8 @@
 @property (assign, nonatomic) NSInteger index;
 
 + (CGFloat)height;
+- (void)willDisplay;
+- (void)didEndDisplay;
 - (void)populateWithObject:(id)object;
 
 @end

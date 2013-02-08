@@ -13,15 +13,32 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  // Create a table view and add it to your view (Conveinience)
-  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
-  
-  // Setup your table view provider
-  self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self];
-  
-  // Update your content
-  [_provider setContent:@[@"One", @"Two", @"Three"] withSections:NO];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTableAction:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  if (!self.tableView)
+  {
+    self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
+    self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self];
+    [_provider setContent:@[@"One", @"Two", @"Three"] withSections:NO];
+  }
+}
+
+#pragma mark - Actions
+
+- (void)editTableAction:(id)sender
+{
+  if ([_tableView isEditing])
+  {
+    [_tableView setEditing:NO animated:NO];  
+  }
+  else
+  {
+    [_tableView setEditing:YES animated:YES];
+  }
 }
 
 #pragma mark - RHTableViewProviderDelegate

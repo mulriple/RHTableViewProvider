@@ -20,9 +20,14 @@
   [super viewDidLoad];
   [self setTitle:@"Examples"];
   
-  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
+  // Create a table view and add it to your view (Conveinience)
+  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStyleGrouped forSuperView:self.view];
+  
+  // Setup your table view provider
   self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
-  [self.provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable"] withSections:NO];
+  
+  // Update your content
+  [_provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable"] withSections:NO];
 }
 
 #pragma mark - RHTableViewProviderDelegate

@@ -13,26 +13,17 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self setupTableView];
-  [self fetchContentWithSections];
-}
-
-- (void)setupTableView
-{
-  self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:self.tableView delegate:self];
+  
+  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
+  
   [_provider setShouldDrawCustomViews:YES];
   [_provider setDefaultCellClassName:@"ExampleFourCell"];
-  [[self view] addSubview:self.tableView];
-}
-
-- (void)fetchContentWithSections
-{
-  NSArray *contentA = [NSArray arrayWithObjects:@"One", @"Two", @"Three", nil];
-  NSArray *contentB = [NSArray arrayWithObjects:@"Four", @"Five", @"Six", nil];
-  NSDictionary *sectionA = [NSDictionary dictionaryWithObjectsAndKeys:contentA, RHTableViewProviderSectionRows, @"Section A", RHTableViewProviderSectionHeader, nil];
-  NSDictionary *sectionB = [NSDictionary dictionaryWithObjectsAndKeys:contentB, RHTableViewProviderSectionRows, @"Section B", RHTableViewProviderSectionHeader, @"Section B Footer", RHTableViewProviderSectionFooter, nil];
-  [self.provider setContent:[NSArray arrayWithObjects:sectionA, sectionB, nil] withSections:YES];
+  
+  NSDictionary *sectionA = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section A" };
+  NSDictionary *sectionB = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section B", RHTableViewProviderSectionFooter:@"Section B Footer" };
+  
+  [self.provider setContent:@[sectionA, sectionB] withSections:YES];
 }
 
 #pragma mark - RHTableViewProviderDelegate

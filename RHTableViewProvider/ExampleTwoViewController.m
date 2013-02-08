@@ -21,6 +21,7 @@
 {
   self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
   self.provider = [[RHTableViewProvider alloc] initWithTableView:self.tableView delegate:self];
+  
   [[self view] addSubview:self.tableView];
 }
 

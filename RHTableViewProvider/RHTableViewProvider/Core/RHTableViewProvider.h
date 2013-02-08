@@ -31,8 +31,9 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) NSArray *content;
 
 @property (strong, nonatomic) UIView *emptyView;
-@property (strong, nonatomic) UIView *pullToRefreshView;
 @property (assign, nonatomic) BOOL shouldPullToRefresh;
+@property (assign, nonatomic) BOOL shouldDrawCustomViews;
+@property (strong, nonatomic) UIView *pullToRefreshView;
 @property (assign, nonatomic) CGFloat groupedCellCornerRadius;
 
 @property (assign, nonatomic) CGFloat pullToRefreshDistance;

@@ -364,13 +364,52 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   CGFloat height = 44.0f;
-  Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
-  height = [cellClass height];
+  if (_shouldDrawCustomViews)
+  {
+    [[self tableCellClassForRowAtIndexPath:indexPath] height];
+  }
   return height;
 }
 
+#pragma mark - Cells
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  id object = [self objectAtIndexPath:indexPath];
+  Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
+  NSString *identifier = NSStringFromClass(cellClass);
+
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  if (cell == nil) {
+    cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+  }
+  
+  if ([cell isKindOfClass:[RHTableViewProviderCell class]])
+  {
+    if ([self isCellSingleInSectionForIndexPath:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeSingle]; }
+    else if ([self isIndexPathFirstRowOfSection:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeFirst]; }
+    else if ([self isIndexPathLastRowOfSection:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeLast]; }
+    else { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeMiddle]; }
+    
+    if (self.tableView.style == UITableViewStyleGrouped) { [(RHTableViewProviderCell *)cell group]; }
+    else { [(RHTableViewProviderCell *)cell unGroup]; }
+    
+    [(RHTableViewProviderCell *)cell setCornerRadius:self.groupedCellCornerRadius];
+    [(RHTableViewProviderCell *)cell setIndexPath:indexPath];
+    [(RHTableViewProviderCell *)cell populateWithObject:object];
+  }
+  else
+  {
+    cell.textLabel.text = object;
+  }
+  
+  return cell;
+}
+
+#pragma mark - Row Selection
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{  
+{
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:didSelectRowAtIndexPath:)])
   {
@@ -378,38 +417,12 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{  
-  RHTableViewProviderCell *cell = nil;
-  
-  Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
-  NSString *identifier = NSStringFromClass(cellClass);
-  
-  cell = (RHTableViewProviderCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-  if (cell == nil) {
-    cell = (RHTableViewProviderCell *)[[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-  }
-  
-  id object = [self objectAtIndexPath:indexPath];
-  
-  if ([self isCellSingleInSectionForIndexPath:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeSingle]; }
-  else if ([self isIndexPathFirstRowOfSection:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeFirst]; }
-  else if ([self isIndexPathLastRowOfSection:indexPath]) { [cell setCellType:RHTableViewProviderCellTypeLast]; }
-  else { [cell setCellType:RHTableViewProviderCellTypeMiddle]; }
-  
-  if (self.tableView.style == UITableViewStyleGrouped) { [cell group]; } else { [cell unGroup]; }
-  
-  [cell setCornerRadius:self.groupedCellCornerRadius];
-  [cell setIndexPath:indexPath];
-  [cell populateWithObject:object];
-  
-  return cell;
-}
-
 #pragma mark - Custom Views
 
 - (Class)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (!_shouldDrawCustomViews) { return [UITableViewCell class]; }
+  
   NSString *name = nil;
   if ([self.delegate respondsToSelector:@selector(tableCellClassForRowAtIndexPath:)]) {
     name = [self.delegate tableCellClassForRowAtIndexPath:indexPath];
@@ -425,6 +438,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (Class)tableSectionViewClassForSection:(NSInteger)section header:(BOOL)header
 {
+  if (!_shouldDrawCustomViews) { return nil; }
+  
   id object = [self objectForSectionAtIndex:section header:header];
   if (!object) {
     return nil;

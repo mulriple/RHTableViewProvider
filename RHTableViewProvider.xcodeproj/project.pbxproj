@@ -37,6 +37,7 @@
 		93F3A5EC16A4230400C0DC8F /* RHTableViewProviderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5E316A4230400C0DC8F /* RHTableViewProviderCell.m */; };
 		93F3A5ED16A4230400C0DC8F /* RHTableViewProviderCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5E516A4230400C0DC8F /* RHTableViewProviderCellView.m */; };
 		93F3A5EE16A4230400C0DC8F /* RHTableViewProviderRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5E716A4230400C0DC8F /* RHTableViewProviderRefreshView.m */; };
+		93FB7DDF16C518EE0052A9F7 /* ExampleFourCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FB7DDE16C518EE0052A9F7 /* ExampleFourCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,8 @@
 		93F3A5E516A4230400C0DC8F /* RHTableViewProviderCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderCellView.m; sourceTree = "<group>"; };
 		93F3A5E616A4230400C0DC8F /* RHTableViewProviderRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderRefreshView.h; sourceTree = "<group>"; };
 		93F3A5E716A4230400C0DC8F /* RHTableViewProviderRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderRefreshView.m; sourceTree = "<group>"; };
+		93FB7DDD16C518EE0052A9F7 /* ExampleFourCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleFourCell.h; sourceTree = "<group>"; };
+		93FB7DDE16C518EE0052A9F7 /* ExampleFourCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleFourCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +163,8 @@
 			children = (
 				9367217E16C401BA000CC2C5 /* ExampleFourViewController.h */,
 				9367217F16C401BA000CC2C5 /* ExampleFourViewController.m */,
+				93FB7DDD16C518EE0052A9F7 /* ExampleFourCell.h */,
+				93FB7DDE16C518EE0052A9F7 /* ExampleFourCell.m */,
 			);
 			name = ExampleFour;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				9367217D16C4010B000CC2C5 /* ExampleThreeViewController.m in Sources */,
 				9367218016C401BA000CC2C5 /* ExampleFourViewController.m in Sources */,
 				9367218316C40412000CC2C5 /* RHTableViewProviderSectionViewGroupedDefault.m in Sources */,
+				93FB7DDF16C518EE0052A9F7 /* ExampleFourCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

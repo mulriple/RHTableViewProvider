@@ -21,6 +21,8 @@
 {
   self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
   self.provider = [[RHTableViewProvider alloc] initWithTableView:self.tableView delegate:self];
+  [_provider setShouldDrawCustomViews:YES];
+  [_provider setDefaultCellClassName:@"ExampleFourCell"];
   [[self view] addSubview:self.tableView];
 }
 

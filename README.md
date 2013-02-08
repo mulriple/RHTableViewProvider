@@ -41,7 +41,7 @@ A set of classes to strip all the UITableView boilerplate code from your view co
       self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
       
       // Setup your table view provider
-      self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self];
+      self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
       
       // Update your content
       [_provider setContent:@[@"One", @"Two", @"Three"] withSections:NO];

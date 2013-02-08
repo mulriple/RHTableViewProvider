@@ -13,8 +13,10 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self setupTableView];
-  [self fetchContent];
+  
+  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
+  self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self];
+  [self.provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable"] withSections:NO];
 }
 
 - (void)setupTableView

@@ -10,6 +10,7 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 * Now optionally draw custom views or use the default iOS cells/headers/footers with the _shouldDrawCustomvViews property
 * RHTableViewProviderEditable .. a work in progress to separate out logic for working with editable tables
 * Improved custom view drawing
+* More examples
 
 ## What Does It Do?
 

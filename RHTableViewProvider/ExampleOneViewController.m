@@ -42,7 +42,7 @@
 
 #pragma mark - RHTableViewProviderDelegate
 
-- (void)RHTableViewProvider:(RHTableViewProvider *)provider tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)RHTableViewProvider:(RHTableViewProvider *)provider didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   id object = [provider objectAtIndexPath:indexPath];
   
@@ -54,4 +54,5 @@
 {
   return nil;
 }
+
 @end

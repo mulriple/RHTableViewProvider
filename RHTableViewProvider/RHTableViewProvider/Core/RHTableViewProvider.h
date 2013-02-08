@@ -55,6 +55,8 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (strong, nonatomic) NSIndexPath *indexPathOfFirstRow;
 @property (strong, nonatomic) NSIndexPath *indexPathOfLastRow;
 
++ (UITableView *)tableViewWithFrame:(CGRect)frame style:(UITableViewStyle)style forSuperView:(UIView *)view;
+
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate;
 
 - (void)setup;

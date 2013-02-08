@@ -25,6 +25,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 @implementation RHTableViewProvider
 
++ (UITableView *)tableViewWithFrame:(CGRect)frame style:(UITableViewStyle)style forSuperView:(UIView *)view
+{
+  UITableView *tableView = [[UITableView alloc] initWithFrame:frame style:style];
+  [view addSubview:tableView];
+  return tableView;
+}
+
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate
 {
   self = [super init];

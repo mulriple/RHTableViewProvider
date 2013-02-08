@@ -8,6 +8,11 @@
 
 #import "RHTableViewProvider.h"
 
+@protocol RHTableViewProviderEditableDelegate <RHTableViewProviderDelegate>
+
+
+@end
+
 @interface RHTableViewProviderEditable : RHTableViewProvider
 
 @end

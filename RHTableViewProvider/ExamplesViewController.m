@@ -11,6 +11,7 @@
 #import "ExampleTwoViewController.h"
 #import "ExampleThreeViewController.h"
 #import "ExampleFourViewController.h"
+#import "ExampleFiveViewController.h"
 
 @implementation ExamplesViewController
 
@@ -19,21 +20,11 @@
 {
   [super viewDidLoad];
   [self setTitle:@"Examples"];
-  [self setupTableView];
-  [self fetchContent];
-}
-
-- (void)setupTableView
-{
-  self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:self.tableView delegate:self];
-  [[self view] addSubview:self.tableView];
-}
-
-- (void)fetchContent
-{
-  NSArray *content = [NSArray arrayWithObjects:@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", nil];
-  [self.provider setContent:content withSections:NO];
+  
+  self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
+  self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self];
+  
+  [self.provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable"] withSections:NO];
 }
 
 #pragma mark - RHTableViewProviderDelegate
@@ -66,12 +57,13 @@
       [[self navigationController] pushViewController:example animated:YES];
     }
       break;
+    case 4:
+    {
+      ExampleFiveViewController *example = [[ExampleFiveViewController alloc] initWithNibName:nil bundle:nil];
+      [[self navigationController] pushViewController:example animated:YES];
+    }
+      break;
   }
-}
-
-- (NSString *)tableCellClassForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return nil;
 }
 
 @end

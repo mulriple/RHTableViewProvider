@@ -12,7 +12,7 @@ UITableViews wired up in three lines of code? Yes sir.
 
 ## What Does It Do?
 
-This is a set of classes to stripthe UITableView boilerplate code from your view controllers, wire them up quickly provide to easily create complex, custom tableview setups with interchangeable cell and section styles/content.
+This is a set of classes to strip the UITableView boilerplate code from your view controllers, wire them up quickly, easily create complex, custom tableview setups with interchangeable cell and section styles/content.
 
 * Wires a UITableView up in your view controller with three lines of code
 * Easily provide custom objects to each cell

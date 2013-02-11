@@ -64,7 +64,7 @@ Beyond the above, UITableView obviously offers more functionality via further de
 
 ## Custom Cells
 
-All your cells will to be a subclass of __RHTableViewProviderCell__ which includes lots of useful properties when working with more intricate tables, custom drawing code and template methods. A simple example of how to start working with your custom cell is below, setting the height for this type of cell, custom drawing if required and the __populateWithObject:(id)object__ implemenation which is how all our cells get their content, which can be anything you like.
+All of your cells will to need be a subclass of __RHTableViewProviderCell__ which includes lots of useful properties when working with more intricate tables, custom drawing code and template methods. A simple example of how to start working with a custom cell is below, setting the height for this type of cell, custom drawing if required and the __populateWithObject:(id)object__ implemenation which is how all our cells get their content, which can of course be passing or storing a reference to any object you like. 
 
     @implementation MYCustomCell
 

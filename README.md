@@ -3,8 +3,6 @@ RHTableViewProvider
 
 UITableViews wired up in three lines of code? Yes sir.
 
-A set of classes to strip all the UITableView boilerplate code from your view controllers and get you wired up fast.
-
 ## Updates
 
 * Now optionally draw custom views or use the default iOS cells/headers/footers with the __shouldDrawCustomViews__ property
@@ -14,13 +12,20 @@ A set of classes to strip all the UITableView boilerplate code from your view co
 
 ## What Does It Do?
 
+This is a set of classes to stripthe UITableView boilerplate code from your view controllers, wire them up quickly provide to easily create complex, custom tableview setups with interchangeable cell and section styles/content.
+
+* Wires a UITableView up in your view controller with three lines of code
 * Easily provide custom objects to each cell
 * Interchange custom UITableViewCell classes
+* Custom drawing of cells (drawRect) if needed
 * Pull to Refresh with your custom view
 * Handles display of your custom 'empty state' view
 * Core Data compatability setting table content with an NSFetchRequest and NSManagedObjectContext
 * Interchange custom section header/footer views, populate with dynamic data
 * Plays nicely with editing tables, deleting rows etc
+
+Beyond the above, UITableView obviously offers more functionality via further delegate methods etc which I've not really found the need to package for re-use as yet. If you need to get more control and hook into the further parts of UITableView just subclass an instance of RHTableViewProvider and drop in your own delegates and notifications there as you require.
+
 
 ## Sample Usage
 

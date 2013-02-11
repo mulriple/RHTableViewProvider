@@ -62,6 +62,33 @@ Beyond the above, UITableView obviously offers more functionality via further de
 
     @end
 
+## Custom Cells
+
+All your cells will to be a subclass of __RHTableViewProviderCell__ which includes lots of useful properties when working with more intricate tables, custom drawing code and template methods. A simple example of how to start working with your custom cell is below, setting the height for this type of cell, custom drawing if required and the __populateWithObject:(id)object__ implemenation which is how all our cells get their content, which can be anything you like.
+
+    @implementation MYCustomCell
+
+    + (CGFloat)height
+    {
+      return 44.0f;
+    }
+
+    - (void)populateWithObject:(id)anObject
+    {
+      Person *person = (Person *)anObject;
+      _nameLabel = person.name;
+    }
+
+    - (void)drawContentView:(CGRect)rect
+    {
+      [super drawContentView:rect];
+      CGContextRef context = UIGraphicsGetCurrentContext();
+      CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+      CGContextFillRect(context, rect);
+    }
+
+    @end
+
 ## TODOs
 
 * This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate. (Adding a 'cell datasource' for the lazy loading, set default datasource as the provider not the view controller)

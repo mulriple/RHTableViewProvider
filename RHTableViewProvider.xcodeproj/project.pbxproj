@@ -25,8 +25,6 @@
 		9368B8BC16A07404008CC5AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8BB16A07404008CC5AB /* Default.png */; };
 		9368B8BE16A07404008CC5AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8BD16A07404008CC5AB /* Default@2x.png */; };
 		9368B8C016A07404008CC5AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8BF16A07404008CC5AB /* Default-568h@2x.png */; };
-		9368B8C316A07404008CC5AB /* RHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8C216A07404008CC5AB /* RHViewController.m */; };
-		9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9368B8E616A076B2008CC5AB /* CustomCell.m */; };
 		93A13CBD16A81441003372F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A13CBC16A81441003372F5 /* QuartzCore.framework */; };
 		93B43A6216A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B43A6116A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m */; };
 		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
@@ -73,10 +71,6 @@
 		9368B8BB16A07404008CC5AB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9368B8BD16A07404008CC5AB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9368B8BF16A07404008CC5AB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		9368B8C116A07404008CC5AB /* RHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHViewController.h; sourceTree = "<group>"; };
-		9368B8C216A07404008CC5AB /* RHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHViewController.m; sourceTree = "<group>"; };
-		9368B8E516A076B2008CC5AB /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
-		9368B8E616A076B2008CC5AB /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		93A13CBC16A81441003372F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		93B43A6016A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderEmptyViewDefault.h; sourceTree = "<group>"; };
 		93B43A6116A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderEmptyViewDefault.m; sourceTree = "<group>"; };
@@ -122,8 +116,7 @@
 		9367216A16C3EF11000CC2C5 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				9367216E16C3F073000CC2C5 /* ExamplesViewController.h */,
-				9367216F16C3F073000CC2C5 /* ExamplesViewController.m */,
+				93FB7DE916C8EBDF0052A9F7 /* Options */,
 				9367217416C3F8A8000CC2C5 /* ExampleOne */,
 				9367217516C3F8AE000CC2C5 /* ExampleTwo */,
 				9367217916C400E5000CC2C5 /* ExampleThree */,
@@ -208,10 +201,6 @@
 				93F3A5CD16A417F600C0DC8F /* Delegate */,
 				93F3A5D216A4230400C0DC8F /* RHTableViewProvider */,
 				9367216A16C3EF11000CC2C5 /* Examples */,
-				9368B8C116A07404008CC5AB /* RHViewController.h */,
-				9368B8C216A07404008CC5AB /* RHViewController.m */,
-				9368B8E516A076B2008CC5AB /* CustomCell.h */,
-				9368B8E616A076B2008CC5AB /* CustomCell.m */,
 				9368B8B016A07404008CC5AB /* Supporting Files */,
 			);
 			path = RHTableViewProvider;
@@ -321,6 +310,15 @@
 			name = ExampleFive;
 			sourceTree = "<group>";
 		};
+		93FB7DE916C8EBDF0052A9F7 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				9367216E16C3F073000CC2C5 /* ExamplesViewController.h */,
+				9367216F16C3F073000CC2C5 /* ExamplesViewController.m */,
+			);
+			name = Options;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,8 +387,6 @@
 			files = (
 				9368B8B616A07404008CC5AB /* main.m in Sources */,
 				9368B8BA16A07404008CC5AB /* RHAppDelegate.m in Sources */,
-				9368B8C316A07404008CC5AB /* RHViewController.m in Sources */,
-				9368B8E716A076B2008CC5AB /* CustomCell.m in Sources */,
 				93F3A5E816A4230400C0DC8F /* NSDictionary+RHTVP.m in Sources */,
 				93F3A5E916A4230400C0DC8F /* RHTableViewProvider.m in Sources */,
 				93F3A5EA16A4230400C0DC8F /* RHTableViewProviderCellDefault.m in Sources */,

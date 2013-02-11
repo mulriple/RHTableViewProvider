@@ -59,6 +59,7 @@ extern NSString *const RHTableViewProviderSectionRows;
 + (UITableView *)tableViewWithFrame:(CGRect)frame style:(UITableViewStyle)style forSuperView:(UIView *)view;
 
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate;
+- (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate customise:(BOOL)customise;
 
 - (void)setup;
 

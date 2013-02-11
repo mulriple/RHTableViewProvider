@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+RHTVP.h"
 
 #define DEGREES_TO_RADIANS(degrees) ((M_PI * degrees)/ 180)
 

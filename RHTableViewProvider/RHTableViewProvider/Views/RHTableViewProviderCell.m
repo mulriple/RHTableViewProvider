@@ -23,6 +23,7 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self)
   {
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self addObservers];
   }
   return self;

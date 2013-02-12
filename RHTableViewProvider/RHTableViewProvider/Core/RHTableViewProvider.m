@@ -42,7 +42,10 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate customise:(BOOL)customise
 {
   self = [super init];
-  if (self) {
+  if (self)
+  {
+    NSParameterAssert(aTableView);
+    NSParameterAssert(aDelegate);
     [self setTableView:aTableView];
     [self setDelegate:aDelegate];
     [self setShouldDrawCustomViews:customise];
@@ -596,15 +599,12 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (void)pullToRefresh
 {
-  if (!self.delegate) {
-    NSLog(@"RHTableViewProvider needs an eventDelegate set for pullToRefresh");
-    return;
-  }
-  
   if (!self.pullToRefreshView)
   {
     self.pullToRefreshView = [[RHTableViewProviderRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, self.pullToRefreshDistance)];
   }
+  
+  if (_pullToRefreshTimer) { [_pullToRefreshTimer invalidate]; }
   
   [[(UIViewController *)self.delegate view] addSubview:self.pullToRefreshView];
   
@@ -614,20 +614,25 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
     
   } completion:^(BOOL finished) {
     
-    [NSTimer scheduledTimerWithTimeInterval:self.pullToRefreshTimeout target:self selector:@selector(pullToRefreshFail) userInfo:nil repeats:NO];
+    self.pullToRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.pullToRefreshTimeout target:self selector:@selector(pullToRefreshCancel) userInfo:nil repeats:NO];
   }];
   
-  if ([self.delegate respondsToSelector:@selector(RHTableViewProvider:tableViewDidPullToRefresh:)]) {
-    [self.delegate RHTableViewProvider:self tableViewDidPullToRefresh:self.tableView];
+  if ([self.delegate respondsToSelector:@selector(RHTableViewProviderDidPullToRefresh:)]) {
+    [self.delegate RHTableViewProviderDidPullToRefresh:self];
   }
 }
 
-- (void)pullToRefreshFail
+- (void)pullToRefreshCancel
 {
-  [self.pullToRefreshView removeFromSuperview];
-  [UIView animateWithDuration:0.25 animations:^{
+  [_pullToRefreshView removeFromSuperview];
+  [_pullToRefreshTimer invalidate];
+  
+   [UIView animateWithDuration:0.25 animations:^{
     [self.tableView setFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
   } completion:nil];
+  if ([self.delegate respondsToSelector:@selector(RHTableViewProviderDidCancelPullToRefresh:)]) {
+    [self.delegate RHTableViewProviderDidCancelPullToRefresh:self];
+  }
 }
 
 - (void)pullToRefreshComplete

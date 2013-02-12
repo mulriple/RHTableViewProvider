@@ -36,6 +36,7 @@ extern NSString *const RHTableViewProviderSectionRows;
 @property (assign, nonatomic) BOOL shouldDrawCustomViews;
 @property (strong, nonatomic) UIView *pullToRefreshView;
 @property (assign, nonatomic) CGFloat groupedCellCornerRadius;
+@property (strong, nonatomic) NSTimer *pullToRefreshTimer;
 
 @property (assign, nonatomic) CGFloat pullToRefreshDistance;
 @property (assign, nonatomic) CGFloat pullToRefreshTimeout;
@@ -88,6 +89,6 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (CGFloat)cellWidth;
 
 - (void)pullToRefreshComplete;
-- (void)pullToRefreshFail;
+- (void)pullToRefreshCancel;
 
 @end

@@ -18,8 +18,8 @@
 - (NSString *)tableSectionFooterViewClassForSection:(NSInteger)section;
 
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidPullToRefresh:(UITableView *)tableView;
-- (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewDidCancelPullToRefresh:(UITableView *)tableView;
+- (void)RHTableViewProviderDidPullToRefresh:(RHTableViewProvider *)provider;
+- (void)RHTableViewProviderDidCancelPullToRefresh:(RHTableViewProvider *)provider;
 
 - (void)RHTableViewProvider:(RHTableViewProvider *)provider tableViewShoudDeleteRowAtIndexPath:(NSIndexPath *)indexPath;
 

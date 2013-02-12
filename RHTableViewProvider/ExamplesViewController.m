@@ -12,6 +12,7 @@
 #import "ExampleThreeViewController.h"
 #import "ExampleFourViewController.h"
 #import "ExampleFiveViewController.h"
+#import "ExampleSixViewController.h"
 
 @implementation ExamplesViewController
 
@@ -24,10 +25,10 @@
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStyleGrouped forSuperView:self.view];
   
   // Setup your table view provider
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:NO];
   
   // Update your content
-  [_provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable"] withSections:NO];
+  [_provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable", @"Pull to Refresh"] withSections:NO];
 }
 
 #pragma mark - RHTableViewProviderDelegate
@@ -69,6 +70,13 @@
     case 4:
     {
       ExampleFiveViewController *example = [[ExampleFiveViewController alloc] initWithNibName:nil bundle:nil];
+      [example setTitle:object];
+      [[self navigationController] pushViewController:example animated:YES];
+    }
+      break;
+    case 5:
+    {
+      ExampleSixViewController *example = [[ExampleSixViewController alloc] initWithNibName:nil bundle:nil];
       [example setTitle:object];
       [[self navigationController] pushViewController:example animated:YES];
     }

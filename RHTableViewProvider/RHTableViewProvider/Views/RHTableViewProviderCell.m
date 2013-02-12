@@ -18,9 +18,14 @@
   return 44.0f;
 }
 
-- (void)setupView
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-  [self setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.parentTableView.frame.size.width, self.contentView.frame.size.height)];
+  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+  if (self)
+  {
+    [self addObservers];
+  }
+  return self;
 }
 
 - (void)group
@@ -42,6 +47,21 @@
   if (self.isGrouped) { customViewFrame = [self groupedRect]; }
   self.customView.frame = customViewFrame;
 	[self setNeedsDisplay];
+}
+
+#pragma mark - KVO
+
+- (void)addObservers
+{
+  [self addObserver:self forKeyPath:@"parentTableView" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if ([keyPath isEqualToString:@"parentTableView"])
+  {
+    [self setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.parentTableView.frame.size.width, self.contentView.frame.size.height)];
+  }
 }
 
 #pragma mark - Getters
@@ -82,6 +102,11 @@
 }
 
 #pragma mark - Template methods
+
+- (void)setupView
+{
+  
+}
 
 - (void)willBeginEditing
 {

@@ -418,7 +418,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   CGFloat height = 44.0f;
   if (_shouldDrawCustomViews)
   {
-    [[self tableCellClassForRowAtIndexPath:indexPath] height];
+    height = [[self tableCellClassForRowAtIndexPath:indexPath] height];
   }
   return height;
 }

@@ -13,22 +13,14 @@
 
 @implementation RHTableViewProviderCell
 
-@synthesize customView, object;
-
 + (CGFloat)height
 {
   return 44.0f;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (void)setupView
 {
-  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-  if (self) {
-    [self setSelectionStyle:UITableViewCellEditingStyleNone];
-    self.customView = [[RHTableViewProviderCellView alloc] initWithFrame:CGRectZero];
-    [self addSubview:self.customView];
-  }
-  return self;
+  
 }
 
 - (void)group
@@ -53,6 +45,16 @@
 }
 
 #pragma mark - Getters
+
+- (UIView *)customView
+{
+  if (_customView != nil) {
+    return _customView;
+  }
+  self.customView = [[RHTableViewProviderCellView alloc] initWithFrame:CGRectZero];
+  [self addSubview:_customView];
+  return _customView;
+}
 
 - (CGRect)groupedRect
 {

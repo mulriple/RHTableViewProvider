@@ -1,6 +1,6 @@
 //
-//  RHTableViewProvider.m
-//  RHTableViewProvider
+//  RHTableProvider.m
+//  RHKit
 //
 //  Created by Rob Hayward on 11/01/2013.
 //  Copyright (c) 2013 Rob Hayward. All rights reserved.
@@ -34,10 +34,18 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate
 {
+  self = [self initWithTableView:aTableView delegate:aDelegate customise:NO];
+  if (self) { }
+  return self;
+}
+
+- (id)initWithTableView:(UITableView *)aTableView delegate:(id<RHTableViewProviderDelegate>)aDelegate customise:(BOOL)customise
+{
   self = [super init];
   if (self) {
-    self.tableView = aTableView;
-    self.delegate = aDelegate;
+    [self setTableView:aTableView];
+    [self setDelegate:aDelegate];
+    [self setShouldDrawCustomViews:customise];
     [self setup];
   }
   return self;
@@ -132,7 +140,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 }
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections
-{  
+{
   _hasSections = sections;
   
   if (theContent == nil)
@@ -228,7 +236,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {
   NSArray *visibleCells = self.tableView.visibleCells;
   for (RHTableViewProviderCell *cell in visibleCells)
-  {  
+  {
     id object = [self objectAtIndexPath:cell.indexPath];
     [cell populateWithObject:object];
   }
@@ -249,7 +257,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 }
 
 - (NSArray *)contentWithSections:(NSArray *)theContent
-{  
+{
   NSMutableArray *mutable = [NSMutableArray arrayWithCapacity:0];
   NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
   [section setObject:theContent forKey:RHTableViewProviderSectionRows];
@@ -430,7 +438,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   id object = [self objectAtIndexPath:indexPath];
   Class cellClass = [self tableCellClassForRowAtIndexPath:indexPath];
   NSString *identifier = NSStringFromClass(cellClass);
-
+  
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
   if (cell == nil) {
     cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -438,10 +446,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   if ([cell isKindOfClass:[RHTableViewProviderCell class]])
   {
-    if ([self isCellSingleInSectionForIndexPath:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeSingle]; }
+    [(RHTableViewProviderCell *)cell setParentTableView:_tableView];
+    [(RHTableViewProviderCell *)cell setupView];
+    
+    if      ([self isCellSingleInSectionForIndexPath:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeSingle]; }
     else if ([self isIndexPathFirstRowOfSection:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeFirst]; }
     else if ([self isIndexPathLastRowOfSection:indexPath]) { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeLast]; }
-    else { [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeMiddle]; }
+    else {  [(RHTableViewProviderCell *)cell setCellType:RHTableViewProviderCellTypeMiddle]; }
     
     if (self.tableView.style == UITableViewStyleGrouped) { [(RHTableViewProviderCell *)cell group]; }
     else { [(RHTableViewProviderCell *)cell unGroup]; }
@@ -574,7 +585,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 #pragma mark - PullToRefresh
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{  
+{
   CGFloat contentOffsetY = scrollView.contentOffset.y;
   if (contentOffsetY < -self.pullToRefreshDistance) {
     if (self.shouldPullToRefresh) {
@@ -656,9 +667,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (void)setupTableView
 {
-  [self.tableView setDataSource:self];
-  [self.tableView setDelegate:self];
-  [self.tableView setTableFooterView:[UIView new]];
+  [_tableView setDataSource:self];
+  [_tableView setDelegate:self];
+  [_tableView setTableFooterView:[UIView new]];
+  if (_shouldDrawCustomViews)
+  {
+    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  }
 }
 
 - (void)setupDefaults

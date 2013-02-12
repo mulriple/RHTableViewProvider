@@ -21,6 +21,7 @@ typedef enum
 
 @interface RHTableViewProviderCell : UITableViewCell
 
+@property (strong, nonatomic) UITableView *parentTableView;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) UIView *customView;
 @property (assign, nonatomic) BOOL isGrouped;
@@ -35,6 +36,7 @@ typedef enum
 @property (strong, nonatomic) UIColor *textColorHighlighted;
 @property (assign, nonatomic) CGFloat borderWidth;
 
+- (void)setupView;
 - (void)drawContentView:(CGRect)rect;
 - (CGRect)groupedRect;
 

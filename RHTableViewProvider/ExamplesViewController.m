@@ -28,7 +28,7 @@
   self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:NO];
   
   // Update your content
-  [_provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable", @"Pull to Refresh"] withSections:NO];
+  [_provider setContent:@[@"Grouped", @"Grouped Customized", @"Plain", @"Plain Customized", @"Editable", @"Pull to Refresh Cusomized"] withSections:NO];
 }
 
 #pragma mark - RHTableViewProviderDelegate

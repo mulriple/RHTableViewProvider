@@ -100,5 +100,4 @@ All of your cells will to need be a subclass of __RHTableViewProviderCell__ whic
 ## TODOs
 
 * This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate. (Adding a 'cell datasource' for the lazy loading, set default datasource as the provider not the view controller)
-* Add the option to use iOS 6 pull-to-refresh instead of the custom view ( I kind of like custom ones though but hey :)
-* Better editable tableview examples
+* Improve editing table

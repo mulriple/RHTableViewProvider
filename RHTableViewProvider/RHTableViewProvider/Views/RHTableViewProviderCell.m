@@ -20,7 +20,7 @@
 
 - (void)setupView
 {
-  
+  [self setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.parentTableView.frame.size.width, self.contentView.frame.size.height)];
 }
 
 - (void)group

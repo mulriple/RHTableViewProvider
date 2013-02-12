@@ -73,9 +73,10 @@ All of your cells will to need be a subclass of __RHTableViewProviderCell__ whic
       return 44.0f;
     }
 
+    // Add all your custom views here once the cell has been initialized with the correct frame and subviews
     - (void)setupView
     {
-      // Add all your custom views here once the cell has been initialized with the correct frame and subviews
+      [super setupView];
       self.nameLabel = [UILabel alloc] initWithFrame:_customView.frame];
       [_customView addSubview:_nameLabel];
     }

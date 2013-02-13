@@ -627,7 +627,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [_pullToRefreshView removeFromSuperview];
   [_pullToRefreshTimer invalidate];
   
-   [UIView animateWithDuration:0.25 animations:^{
+  [UIView animateWithDuration:0.25 animations: ^{
     [self.tableView setFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
   } completion:nil];
   if ([self.delegate respondsToSelector:@selector(RHTableViewProviderDidCancelPullToRefresh:)]) {

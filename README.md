@@ -9,6 +9,7 @@ UITableViews wired up in three lines of code? Yes sir.
 * RHTableViewProviderEditable .. a work in progress to separate out logic for working with editable tables
 * Improved custom view drawing
 * More examples
+* Submitted to Cocoapods
 
 ## What Does It Do?
 

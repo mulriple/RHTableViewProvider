@@ -645,15 +645,10 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 #pragma mark - Core Data
 
-- (NSFetchedResultsController *)fetchedResultsController {
-  
-  if (self.fetchRequest == nil) {
-    return nil;
-  }
-  
-  if (_fetchedResultsController != nil) {
-    return _fetchedResultsController;
-  }
+- (NSFetchedResultsController *)fetchedResultsController
+{  
+  if (self.fetchRequest == nil) { return nil; }
+  if (_fetchedResultsController != nil) { return _fetchedResultsController; }
   
   NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.context sectionNameKeyPath:self.sectionKeyPath cacheName:nil];
   self.fetchedResultsController = theFetchedResultsController;
@@ -675,8 +670,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [_tableView setDataSource:self];
   [_tableView setDelegate:self];
   [_tableView setTableFooterView:[UIView new]];
-  if (_shouldDrawCustomViews)
-  {
+  if (_shouldDrawCustomViews) {
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   }
 }

@@ -101,4 +101,8 @@ All of your cells will to need be a subclass of __RHTableViewProviderCell__ whic
 ## TODOs
 
 * This is currently best for more static tableViews and menus, I'll be re-implementing a version of 'cellForRowAtIndexPath' to lazy load in cells/sections without the boilerplate. (Adding a 'cell datasource' for the lazy loading, set default datasource as the provider not the view controller)
-* Improve editing table
+* Improve editing table custom view drawing
+
+## Contact
+
+Any questions or issues feel free to get in touch [hello@robhayward.co.uk] (hello@robhayward.co.uk) [@robhayward] (http://www.twitter.com/robhayward)

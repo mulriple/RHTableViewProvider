@@ -12,7 +12,7 @@
 
 - (void)disableUserInteractionOnSubviews
 {
-  for (UIView *view in self.subviews)
+  for (UIView *view in [self subviews])
   {
     [view setUserInteractionEnabled:NO];
   }

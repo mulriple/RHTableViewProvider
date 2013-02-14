@@ -105,4 +105,7 @@ All of your cells will to need be a subclass of __RHTableViewProviderCell__ whic
 
 ## Contact
 
-Any questions or issues feel free to get in touch [hello@robhayward.co.uk] (hello@robhayward.co.uk) [@robhayward] (http://www.twitter.com/robhayward)
+Any questions or issues feel free to get in touch
+
+[hello@robhayward.co.uk] (hello@robhayward.co.uk)
+[@robhayward] (http://www.twitter.com/robhayward)

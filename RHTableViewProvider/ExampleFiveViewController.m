@@ -22,7 +22,7 @@
   if (!self.tableView)
   {
     self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
-    self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:NO];
+    self.provider = [[RHTableViewProviderEditable alloc] initWithTableView:_tableView delegate:self customise:NO];
     [_provider setContent:@[@"One", @"Two", @"Three"] withSections:NO];
   }
 }

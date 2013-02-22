@@ -21,7 +21,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   BOOL _hasSections;
   NSInteger _totalItems;
 }
-
 @property (strong, nonatomic) NSArray *content;
 
 @end
@@ -110,6 +109,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (BOOL)isIndexPathLastRowOfSection:(NSIndexPath *)indexPath
 {
+  if (self.fetchedResultsController) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    NSInteger count = [sectionInfo numberOfObjects];
+    if (indexPath.row == (count - 1)) { return YES; }
+    return NO;
+  }
+  
   NSInteger count = [[[self.content objectAtIndex:indexPath.section] objectForKey:RHTableViewProviderSectionRows] count];
   if (indexPath.row == (count - 1)) { return YES; }
   return NO;
@@ -117,6 +123,15 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (BOOL)isCellSingleInSectionForIndexPath:(NSIndexPath *)indexPath
 {
+  if (self.fetchedResultsController) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    NSInteger count = [sectionInfo numberOfObjects];
+    if (count > 0) {
+      return NO;
+    }
+    return YES;
+  }
+  
   NSInteger count = [[[self.content objectAtIndex:indexPath.section] objectForKey:RHTableViewProviderSectionRows] count];
   if (count > 1) {
     return NO;
@@ -347,17 +362,13 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (self.fetchedResultsController) {
-    return @"Placeholder Section Header Title";
-  }
+  if (self.fetchedResultsController) { return nil; } // TODO.. Implement!
   return [self objectForSectionAtIndex:section header:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-  if (self.fetchedResultsController) {
-    return @"Placeholder Section Footer Title";
-  }
+  if (self.fetchedResultsController) { return nil; } // TODO.. Implement!
   return [self objectForSectionAtIndex:section header:NO];
 }
 
@@ -541,11 +552,11 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if ([self.delegate respondsToSelector:@selector(tableCellClassForRowAtIndexPath:)]) {
     name = [self.delegate tableCellClassForRowAtIndexPath:indexPath];
   }
-  if (name == nil) {
-    name = self.defaultCellClassName;
+  if (name == nil)
+  {
     if (self.tableView.style == UITableViewStyleGrouped) {
       name = self.defaultGroupedCellClassName;
-    }
+    } else { name = self.defaultCellClassName; }
   }
   return NSClassFromString(name);
 }
@@ -649,11 +660,15 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 #pragma mark - Core Data
 
 - (NSFetchedResultsController *)fetchedResultsController
-{  
+{
   if (self.fetchRequest == nil) { return nil; }
   if (_fetchedResultsController != nil) { return _fetchedResultsController; }
   
-  NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.context sectionNameKeyPath:self.sectionKeyPath cacheName:nil];
+  NSString *cacheName = @"Root";
+  if (self.sectionKeyPath) {
+    // TODO.. cacheName ..
+  }
+  NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.context sectionNameKeyPath:self.sectionKeyPath cacheName:cacheName];
   self.fetchedResultsController = theFetchedResultsController;
   self.fetchedResultsController.delegate = self;
   
@@ -682,7 +697,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {
   self.pullToRefreshDistance = 70.0f;
   self.pullToRefreshTimeout = 10.0f;
-  self.defaultSectionHeight = 20.0f;
+  self.defaultSectionHeight = 30.0f;
   self.groupedCellCornerRadius = 10.0f;
   self.defaultCellClassName = @"RHTableViewProviderCellDefault";
   self.defaultGroupedCellClassName = @"RHTableViewProviderCellGroupedDefault";

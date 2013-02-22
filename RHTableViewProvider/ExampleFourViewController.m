@@ -22,9 +22,8 @@
 - (void)setupTableView
 {
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:YES];
   
-  [_provider setShouldDrawCustomViews:YES];
   [_provider setDefaultCellClassName:@"ExampleFourCell"];
   [_provider setSectionIndexTitles:@[@"A", @"B"]];
   

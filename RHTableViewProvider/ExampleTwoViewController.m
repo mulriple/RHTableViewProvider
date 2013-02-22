@@ -15,9 +15,7 @@
   [super viewDidLoad];
   
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStyleGrouped forSuperView:self.view];
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
-  
-  [_provider setShouldDrawCustomViews:YES];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:YES];
   
   NSDictionary *section = @{RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six"], RHTableViewProviderSectionHeader:@"Section Name"};
   

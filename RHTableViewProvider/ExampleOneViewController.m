@@ -18,7 +18,7 @@
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStyleGrouped forSuperView:self.view];
   
   // Setup your table view provider
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:NO];
   
   // Update your content
   [_provider setContent:@[@"One", @"Two", @"Three"] withSections:NO];

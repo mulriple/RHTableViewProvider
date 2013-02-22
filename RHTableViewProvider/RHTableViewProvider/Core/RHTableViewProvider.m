@@ -21,6 +21,9 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   BOOL _hasSections;
   NSInteger _totalItems;
 }
+
+@property (strong, nonatomic) NSArray *content;
+
 @end
 
 @implementation RHTableViewProvider

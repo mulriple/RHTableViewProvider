@@ -15,7 +15,7 @@
   [super viewDidLoad];
   
   self.tableView = [RHTableViewProvider tableViewWithFrame:self.view.bounds style:UITableViewStylePlain forSuperView:self.view];
-  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self];
+  self.provider = [[RHTableViewProvider alloc] initWithTableView:_tableView delegate:self customise:NO];
 
   NSDictionary *sectionA = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section A" };
   NSDictionary *sectionB = @{ RHTableViewProviderSectionRows:@[@"One", @"Two", @"Three"], RHTableViewProviderSectionHeader:@"Section B", RHTableViewProviderSectionFooter:@"Section B Footer" };

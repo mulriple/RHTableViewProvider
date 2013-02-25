@@ -664,7 +664,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if (self.fetchRequest == nil) { return nil; }
   if (_fetchedResultsController != nil) { return _fetchedResultsController; }
   
-  NSString *cacheName = @"Root";
+  NSString *cacheName = nil;
   if (self.sectionKeyPath) {
     // TODO.. cacheName ..
   }

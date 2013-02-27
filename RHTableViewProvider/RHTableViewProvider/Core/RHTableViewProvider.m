@@ -167,7 +167,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   return mutable;
 }
 
-#pragma mark - Setters
+#pragma mark - Delete
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -178,8 +178,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
     return;
   }
   NSMutableDictionary *section =  [NSMutableDictionary dictionaryWithDictionary:[self.content objectAtIndex:indexPath.section]];
-  NSMutableArray *rows = [NSMutableArray arrayWithCapacity:0];
-  
+  NSMutableArray *rows = [NSMutableArray arrayWithArray:[section valueForKey:RHTableViewProviderSectionRows]];
   id object = [rows objectAtIndex:indexPath.row];
   if (object) {
     [rows removeObjectAtIndex:indexPath.row];
@@ -187,6 +186,8 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [section setValue:rows forKey:RHTableViewProviderSectionRows];
   [self.content replaceObjectAtIndex:indexPath.section withObject:section];
 }
+
+#pragma mark - Setters
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections
 {

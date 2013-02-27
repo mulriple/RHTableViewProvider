@@ -27,6 +27,8 @@
 		9368B8C016A07404008CC5AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9368B8BF16A07404008CC5AB /* Default-568h@2x.png */; };
 		93A13CBD16A81441003372F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A13CBC16A81441003372F5 /* QuartzCore.framework */; };
 		93B43A6216A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B43A6116A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m */; };
+		93BC1AA016DE13A2009B6054 /* RHTableViewProvider.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93BC1A9E16DE13A2009B6054 /* RHTableViewProvider.xcdatamodeld */; };
+		93C98C7716DE15E00057A1F3 /* ExampleFiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C98C7616DE15E00057A1F3 /* ExampleFiveCell.m */; };
 		93DF32FA16A3114F004CBE75 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DF32F916A3114F004CBE75 /* CoreData.framework */; };
 		93F3A5E816A4230400C0DC8F /* NSDictionary+RHTVP.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5D516A4230400C0DC8F /* NSDictionary+RHTVP.m */; };
 		93F3A5E916A4230400C0DC8F /* RHTableViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F3A5D816A4230400C0DC8F /* RHTableViewProvider.m */; };
@@ -76,6 +78,9 @@
 		93A13CBC16A81441003372F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		93B43A6016A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableViewProviderEmptyViewDefault.h; sourceTree = "<group>"; };
 		93B43A6116A9BFFE00A6EBD8 /* RHTableViewProviderEmptyViewDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableViewProviderEmptyViewDefault.m; sourceTree = "<group>"; };
+		93BC1A9F16DE13A2009B6054 /* RHTableViewProvider.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RHTableViewProvider.xcdatamodel; sourceTree = "<group>"; };
+		93C98C7516DE15E00057A1F3 /* ExampleFiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleFiveCell.h; sourceTree = "<group>"; };
+		93C98C7616DE15E00057A1F3 /* ExampleFiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleFiveCell.m; sourceTree = "<group>"; };
 		93DF32F916A3114F004CBE75 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		93F3A5D416A4230400C0DC8F /* NSDictionary+RHTVP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHTVP.h"; sourceTree = "<group>"; };
 		93F3A5D516A4230400C0DC8F /* NSDictionary+RHTVP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHTVP.m"; sourceTree = "<group>"; };
@@ -232,6 +237,7 @@
 			children = (
 				9368B8B816A07404008CC5AB /* RHAppDelegate.h */,
 				9368B8B916A07404008CC5AB /* RHAppDelegate.m */,
+				93BC1A9E16DE13A2009B6054 /* RHTableViewProvider.xcdatamodeld */,
 			);
 			name = Delegate;
 			sourceTree = "<group>";
@@ -315,6 +321,8 @@
 			children = (
 				93FB7DE116C51B400052A9F7 /* ExampleFiveViewController.h */,
 				93FB7DE216C51B400052A9F7 /* ExampleFiveViewController.m */,
+				93C98C7516DE15E00057A1F3 /* ExampleFiveCell.h */,
+				93C98C7616DE15E00057A1F3 /* ExampleFiveCell.m */,
 			);
 			name = ExampleFive;
 			sourceTree = "<group>";
@@ -426,6 +434,8 @@
 				93FB7DE316C51B400052A9F7 /* ExampleFiveViewController.m in Sources */,
 				93FB7EB716C95A000052A9F7 /* UIView+RHTVP.m in Sources */,
 				93FB7EC316CAA3370052A9F7 /* ExampleSixViewController.m in Sources */,
+				93BC1AA016DE13A2009B6054 /* RHTableViewProvider.xcdatamodeld in Sources */,
+				93C98C7716DE15E00057A1F3 /* ExampleFiveCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +549,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		93BC1A9E16DE13A2009B6054 /* RHTableViewProvider.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				93BC1A9F16DE13A2009B6054 /* RHTableViewProvider.xcdatamodel */,
+			);
+			currentVersion = 93BC1A9F16DE13A2009B6054 /* RHTableViewProvider.xcdatamodel */;
+			path = RHTableViewProvider.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9368B89C16A07404008CC5AB /* Project object */;
 }

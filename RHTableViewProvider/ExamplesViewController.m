@@ -71,6 +71,7 @@
     {
       ExampleFiveViewController *example = [[ExampleFiveViewController alloc] initWithNibName:nil bundle:nil];
       [example setTitle:object];
+      [example setContext:self.context];
       [[self navigationController] pushViewController:example animated:YES];
     }
       break;

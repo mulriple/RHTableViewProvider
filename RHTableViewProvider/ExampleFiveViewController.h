@@ -14,5 +14,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) RHTableViewProviderEditable *provider;
+@property (strong, nonatomic) NSMutableArray *content;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end

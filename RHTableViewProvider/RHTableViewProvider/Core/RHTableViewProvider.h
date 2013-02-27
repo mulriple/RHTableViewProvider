@@ -64,7 +64,8 @@ extern NSString *const RHTableViewProviderSectionRows;
 - (void)setup;
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections;
-- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext;
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest context:(NSManagedObjectContext *)aContext;
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest sectionKeyPath:(NSString *)keyPath context:(NSManagedObjectContext *)aContext;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;

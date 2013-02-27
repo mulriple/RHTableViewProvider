@@ -21,7 +21,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   BOOL _hasSections;
   NSInteger _totalItems;
 }
-@property (strong, nonatomic) NSArray *content;
+@property (strong, nonatomic) NSMutableArray *content;
 
 @end
 
@@ -75,6 +75,16 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 
 - (id)objectForSectionAtIndex:(NSInteger)index header:(BOOL)header
 {
+  if (self.fetchedResultsController)
+  {
+    if (header)
+    {
+      id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:index];
+      return [sectionInfo name];
+    }
+    return nil;
+  }
+  
   NSDictionary *section = [self.content objectAtIndex:index];
   if (header) {
     return [section objectForKeyNotNull:RHTableViewProviderSectionHeader];
@@ -148,16 +158,34 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   }
 }
 
+- (NSMutableArray *)contentWithSections:(NSArray *)theContent
+{
+  NSMutableArray *mutable = [NSMutableArray arrayWithCapacity:0];
+  NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
+  [section setObject:[theContent mutableCopy] forKey:RHTableViewProviderSectionRows];
+  [mutable addObject:section];
+  return mutable;
+}
+
 #pragma mark - Setters
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSDictionary *section = [self.content objectAtIndex:indexPath.section];
-  NSMutableArray *rows = [section valueForKey:RHTableViewProviderSectionRows];
+  if (self.fetchedResultsController)
+  {
+    id object = [self objectAtIndexPath:indexPath];
+    [self.context deleteObject:object];
+    return;
+  }
+  NSMutableDictionary *section =  [NSMutableDictionary dictionaryWithDictionary:[self.content objectAtIndex:indexPath.section]];
+  NSMutableArray *rows = [NSMutableArray arrayWithCapacity:0];
+  
   id object = [rows objectAtIndex:indexPath.row];
   if (object) {
     [rows removeObjectAtIndex:indexPath.row];
   }
+  [section setValue:rows forKey:RHTableViewProviderSectionRows];
+  [self.content replaceObjectAtIndex:indexPath.section withObject:section];
 }
 
 - (void)setContent:(NSArray *)theContent withSections:(BOOL)sections
@@ -166,12 +194,12 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   
   if (theContent == nil)
   {
-    self.content = [[NSArray alloc] init];
+    self.content = [NSMutableArray arrayWithCapacity:0];
   }
   else
   {
     if (_hasSections) {
-      self.content = theContent;
+      self.content = [theContent mutableCopy];
     } else {
       self.content = [self contentWithSections:theContent];
     }
@@ -179,11 +207,18 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   [self reload];
 }
 
-- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest inContext:(NSManagedObjectContext *)aContext
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest context:(NSManagedObjectContext *)aContext
+{
+  [self setContentWithFetchRequest:aFetchRequest sectionKeyPath:nil context:aContext];
+}
+
+- (void)setContentWithFetchRequest:(NSFetchRequest *)aFetchRequest sectionKeyPath:(NSString *)keyPath context:(NSManagedObjectContext *)aContext
 {
   self.fetchRequest = aFetchRequest;
   self.context = aContext;
   self.fetchedResultsController = nil;
+  self.sectionKeyPath = keyPath;
+  if (self.sectionKeyPath) { _hasSections = YES; } else { _hasSections = NO; }
   
   NSError *error = nil;
   
@@ -275,15 +310,6 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
 {
   [self.tableView setHidden:YES];
   [self.emptyView setHidden:NO];
-}
-
-- (NSArray *)contentWithSections:(NSArray *)theContent
-{
-  NSMutableArray *mutable = [NSMutableArray arrayWithCapacity:0];
-  NSMutableDictionary *section = [NSMutableDictionary dictionaryWithCapacity:0];
-  [section setObject:theContent forKey:RHTableViewProviderSectionRows];
-  [mutable addObject:section];
-  return mutable;
 }
 
 - (Class)tableCellClassForContentOption {
@@ -665,14 +691,23 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if (_fetchedResultsController != nil) { return _fetchedResultsController; }
   
   NSString *cacheName = nil;
-  if (self.sectionKeyPath) {
-    // TODO.. cacheName ..
-  }
   NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.context sectionNameKeyPath:self.sectionKeyPath cacheName:cacheName];
   self.fetchedResultsController = theFetchedResultsController;
   self.fetchedResultsController.delegate = self;
   
   return _fetchedResultsController;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+  // Subclass the provider to implement this functionality
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+  // Subclass the provider to implement this functionality
 }
 
 #pragma mark - Setup

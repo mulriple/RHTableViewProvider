@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) RHTableViewProvider *provider;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end

@@ -136,7 +136,7 @@ NSString *const RHTableViewProviderSectionRows = @"RHTableViewProviderSectionRow
   if (self.fetchedResultsController) {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
     NSInteger count = [sectionInfo numberOfObjects];
-    if (count > 0) {
+    if (count > 1) {
       return NO;
     }
     return YES;
